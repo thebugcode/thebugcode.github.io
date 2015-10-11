@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Xcode iOS Icon Tag</title>
+	<meta name="description" content="Overlay png file on app icons found in xcassets" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=6cf6ec952e" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/pimp-your-ios-app-icons/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xcode iOS Icon Tag" />
+    <meta property="og:description" content="Overlay png file on app icons found in xcassets" />
+    <meta property="og:url" content="http://thebugcode.github.io/pimp-your-ios-app-icons/" />
+    <meta property="article:published_time" content="2015-10-11T20:07:08.396Z" />
+    <meta property="article:modified_time" content="2015-10-11T20:39:43.473Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Xcode iOS Icon Tag" />
+    <meta name="twitter:description" content="Overlay png file on app icons found in xcassets" />
+    <meta name="twitter:url" content="http://thebugcode.github.io/pimp-your-ios-app-icons/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate architecture evangelist"
+    },
+    "headline": "Xcode iOS Icon Tag",
+    "url": "http://thebugcode.github.io/pimp-your-ios-app-icons/",
+    "datePublished": "2015-10-11T20:07:08.396Z",
+    "dateModified": "2015-10-11T20:39:43.473Z",
+    "description": "Overlay png file on app icons found in xcassets"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Tag your iOS App Icons</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-10-11">11 Oct 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>I ran into this issue a few days ago:  </p>
+
+<blockquote>
+  <p>How do I make it clear for my testers that what they are testing is an alpha version?</p>
+</blockquote>
+
+<h4 id="inotherwordshowtogetthisappicon">In other words: How to get this app icon</h4>
+
+<p><img src="../content/images/2015/10/Screen-Shot-2015-10-11-at-21-55-51.png" alt="Drawing" style="width: 90px;  padding-left: 30px"/></p>
+
+<h4 id="tolooklikethis">To look like this</h4>
+
+<p><img src="../content/images/2015/10/Screen-Shot-2015-10-11-at-21-55-41.png" alt="Drawing" style="width: 90px;  padding-left: 30px"/></p>
+
+<p>It turns out the code bug himself has written a command line tool for that. It's called PimpMyIcons and you can find it <a href="https://github.com/thebugcode/PimpMyIcons">on Github</a>. Sorry for all the nasty dependencies. The code bug would like to write it all by himself, but he has short hands and types slow. Such is the life of bugs.</p>
+
+<p>The script tries to find the <strong>watermark.png</strong> in the same directory as the script analyze.sh is in   and inscribes it over each icon in your assets.appIcons directory. If you want to apply your custom image, just replace the contents of watermark.png with something else. Don't change the file name as the tool will fail.</p>
+
+<p>Run the tool and get the following output:  </p>
+
+<pre><code class="language-bash">sh tag_icons.sh tag ~/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/  
+Icon '/Users/danursu/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon29x29@2x.png' updated  
+Icon '/Users/danursu/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon40x40@2x.png' updated  
+Icon '/Users/danursu/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/icon.png' updated  
+Icon '/Users/danursu/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon29x29.png' updated  
+Icon '/Users/danursu/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon29x29@2x-1.png' updated  
+Icon '/Users/thecodebug/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon40x40.png' updated  
+Icon '/Users/thecodebug/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon40x40@2x-1.png' updated  
+Icon '/Users/thecodebug/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon76x76.png' updated  
+Icon '/Users/danursu/Desktop/iqapp/IQApp/Images.xcassets/AppIcon.appiconset/AppIcon76x76@2x.png' updated  
+</code></pre>
+
+<p>There have been suggestions of naming this <a href="https://en.wikipedia.org/wiki/Pimp_My_Ride">xZibit</a> but honestly, I like Chip Foose better.</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Tag your iOS App Icons&url=http://thebugcode.github.io/pimp-your-ios-app-icons/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/pimp-your-ios-app-icons/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/pimp-your-ios-app-icons/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate architecture evangelist</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../a-new-home-website/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">A new Home Website</h2>
+							<p class="post-nav-excerpt">Welcome friends of the bug. We have a new, fast and free&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=6cf6ec952e"></script>
+
+	
+
+</body>
+</html>
