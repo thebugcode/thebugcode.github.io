@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Dependency Injection for iOS</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=22fa7bcb63" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/dependency-injection-principle-for-ios/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Dependency Injection for iOS" />
+    <meta property="og:description" content="So what is dependency injection? And why should I care?  Dependency injection is just a fancy word for passing objects to methods instead of creating them inside those methods. Suppose you have a simple UIViewController which displays a few items..." />
+    <meta property="og:url" content="http://thebugcode.github.io/dependency-injection-principle-for-ios/" />
+    <meta property="article:published_time" content="2015-10-19T23:45:05.799Z" />
+    <meta property="article:modified_time" content="2015-10-20T01:00:42.352Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Dependency Injection for iOS" />
+    <meta name="twitter:description" content="So what is dependency injection? And why should I care?  Dependency injection is just a fancy word for passing objects to methods instead of creating them inside those methods. Suppose you have a simple UIViewController which displays a few items..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/dependency-injection-principle-for-ios/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "Dependency Injection for iOS",
+    "url": "http://thebugcode.github.io/dependency-injection-principle-for-ios/",
+    "datePublished": "2015-10-19T23:45:05.799Z",
+    "dateModified": "2015-10-20T01:00:42.352Z",
+    "description": "So what is dependency injection? And why should I care?  Dependency injection is just a fancy word for passing objects to methods instead of creating them inside those methods. Suppose you have a simple UIViewController which displays a few items..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Dependency Injection for iOS</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-10-20">20 Oct 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>So what is dependency injection? And why should I care? <br />
+<mark>Dependency injection is just a fancy word for passing objects to methods instead of creating them inside those methods.</mark></p>
+
+<p>Suppose you have a simple UIViewController which displays a few items and when you tap a button, it reverses the order of the items and saves them to a file.</p>
+
+<pre><code class="language-objc">@interface ViewController () &lt;UITableViewDataSource&gt;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *dataArray;
+@end
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSArray *fileContents = [NSArray arrayWithContentsOfFile:@"myfile"];
+    if (fileContents) {
+        self.dataArray = fileContents;
+    } else {
+        self.dataArray = @[@"First Item", @"Second Item", @"Third Item", @"Fourth Item"];
+    }
+}
+
+- (IBAction)reverseOrderAndSaveToFile:(UIButton *)sender {
+    self.dataArray =  [[self.dataArray reverseObjectEnumerator] allObjects];
+    [self.dataArray writeToFile:@"myfile" atomically:YES];
+    [self.tableView reloadData];
+}
+@end
+</code></pre>
+
+<p>The code above should bother you on a deep level.  Something is terribly wrong with it, and it's not that it's in Objective-C. So what is it?</p>
+
+<p>Those nasty write to file commands are just noise. When you read a View Controller's source code do you want to find out how it's datasource works? Do you really care what the name of the file where data is stored is? No, you just skip that code, because you are interested in how views are controlled.</p>
+
+<p>So let's comment out all the lines which deal with reading and writing data:  </p>
+
+<pre><code class="language-objc">- (void)viewDidLoad {
+    [super viewDidLoad];
+//    NSArray *fileContents = [NSArray arrayWithContentsOfFile:@"myfile"];
+//    if (fileContents) {
+//        self.dataArray = fileContents;
+//    } else {
+//        self.dataArray = @[@"First Item", @"Second Item", @"Third Item", @"Fourth Item"];
+//    }
+}
+- (IBAction)reverseOrderAndSaveToFile:(UIButton *)sender {
+    self.dataArray =  [[self.dataArray reverseObjectEnumerator] allObjects];
+//    [self.dataArray writeToFile:@"myfile" atomically:YES];
+    [self.tableView reloadData];
+}
+</code></pre>
+
+<p>Ok, so far so good. So lets get rid of comments and use real code:  </p>
+
+<pre><code class="language-objc">- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.array = [self.fileStorage readDataFromFile];
+}
+- (IBAction)reverseOrderAndSaveToFile:(UIButton *)sender {
+    self.array =  [[self.array reverseObjectEnumerator] allObjects];
+    [self.fileStorage writeArrayToFile:self.array];
+    [self.tableView reloadData];
+}
+</code></pre>
+
+<p>What we just did is called class extraction. We extracted the file reading and writing into a new class. So how does that class look like?  </p>
+
+<pre><code class="language-objc">@implementation FileStorage
+
+- (NSArray *)readDataFromFile {
+    NSArray *fileContents = [NSArray arrayWithContentsOfFile:@"myfile"];
+    if (fileContents) {
+        return fileContents;
+    } else {
+        return @[@"First Item", @"Second Item", @"Third Item", @"Fourth Item"];
+    }
+}
+- (void)writeArrayToFile:(NSArray *)arrayToSave {
+    [arrayToSave writeToFile:@"myfile" atomically:YES];
+}
+@end
+</code></pre>
+
+<p>Oh, you see what the code bug did there? He just extracted that ugly, file specific code into a class. </p>
+
+<p>So how does the ViewController get a pointer to the FileStorage object you ask? Well, through dependency injection. We literally inject, a dependency:  </p>
+
+<pre><code class="language-objc">@implementation ViewController
+
+- (instancetype)initWithFileStorage:(FileStorage *)storage {
+    self = [super init];
+    if (self) {
+        self.fileStorage = storage;
+    }
+
+    return self;
+}
+</code></pre>
+
+<p>And that's what dependency injection is about. There are many ways to inject a dependency: <br />
+1. <strong>Constructor Injection</strong> - what we just saw <br />
+2. <strong>Setter Injection</strong> <br />
+3. <strong>Parameter Injection</strong> (fancy way of saying you pass an object to a method which it uses to do it's work).</p>
+
+<p>So why go through all this pain, what do you gain?</p>
+
+<ol>
+<li><p>The FileStorage class can be tested. You can write tests for writing and reading from file. This is extremely cool as you might have noticed saving to file won't really work now.</p></li>
+<li><p>It is easier to read the View Controller source code because the details of writing and reading data are hidden away.</p></li>
+<li><p>You can replace the FileStorage class implementation by saving to CoreData or to a plist file. The ViewController couldn't care less. And after you change the implementation of the FileStorage class, you have unit tests to test it still works.</p></li>
+<li><p>One team member can work on the View Controller and another one can work on the FileStorage class. No need to wait for each other.</p></li>
+</ol>
+
+<p>What are the things you should inject into a ViewController? <br />
+You should inject things like Persistence, Networking, DataManipulation. The CodeBug goes as far as injecting an object called an <a href="https://www.objc.io/issues/13-architecture/viper/">Interactor</a> into his ViewControllers. The interactor performs Requests, Data Fetching and Writing, Data Manipulation and formating. The view controller just receives formatted data and displays it. But more on that later. </p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Dependency Injection for iOS&url=http://thebugcode.github.io/dependency-injection-principle-for-ios/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/dependency-injection-principle-for-ios/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/dependency-injection-principle-for-ios/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../pimp-your-ios-app-icons/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">Tag your iOS App Icons</h2>
+							<p class="post-nav-excerpt">I ran into this issue a few days ago:     How do I&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=22fa7bcb63"></script>
+
+	
+
+</body>
+</html>
