@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Open Closed Principle or the cure to the framework dependency disease</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=8ebc89f349" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/openclosedprinciple/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Open Closed Principle or the cure to the framework dependency disease" />
+    <meta property="og:description" content="Hi there bugs. Today&#x27;s topic is about a nice architectural pattern.  Imagine you have to provide users to log into your app(software) with Facebook and Instagram How do you organise your code in classes in a extensible manner so..." />
+    <meta property="og:url" content="http://thebugcode.github.io/openclosedprinciple/" />
+    <meta property="article:published_time" content="2015-10-28T19:28:23.346Z" />
+    <meta property="article:modified_time" content="2015-10-29T00:47:59.492Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Open Closed Principle or the cure to the framework dependency disease" />
+    <meta name="twitter:description" content="Hi there bugs. Today&#x27;s topic is about a nice architectural pattern.  Imagine you have to provide users to log into your app(software) with Facebook and Instagram How do you organise your code in classes in a extensible manner so..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/openclosedprinciple/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "Open Closed Principle or the cure to the framework dependency disease",
+    "url": "http://thebugcode.github.io/openclosedprinciple/",
+    "datePublished": "2015-10-28T19:28:23.346Z",
+    "dateModified": "2015-10-29T00:47:59.492Z",
+    "description": "Hi there bugs. Today&#x27;s topic is about a nice architectural pattern.  Imagine you have to provide users to log into your app(software) with Facebook and Instagram How do you organise your code in classes in a extensible manner so..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Open Closed Principle or the cure to the framework dependency disease</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-10-28">28 Oct 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>Hi there bugs.</p>
+
+<p>Today's topic is about a nice architectural pattern. <br />
+Imagine you have to provide users to log into your app(software) with Facebook and Instagram</p>
+
+<p><mark>How do you organise your code in classes in a extensible manner so that later you can later add Twitter to the login options?</mark></p>
+
+<p>If you have not written code before, it must seem fairly simple to add the ability to login with twitter once you have <strong>instagram</strong> and <strong>facebook</strong>. Ideally you will do the same thing you did for those two, and just copy paste it for twitter. How hard can this be?</p>
+
+<p>In fact it's very hard if you don't separate code properly. Let's look how things can go wrong.</p>
+
+<p>Suppose you have an app, with one screen which provides login with Instagram. Basic stuff:  </p>
+
+<pre><code class="language-objc">#define APP_ID @"fd725621c5e44198a5b8ad3f7a0ffa09"
+@implementation IGViewController
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    IGAppDelegate* appDelegate = (IGAppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelegate.instagram = [[Instagram alloc] initWithClientId:APP_ID
+                                                       delegate:nil];
+    appDelegate.instagram.sessionDelegate = self;
+}
+- (IBAction)login:(id)sender {
+    IGAppDelegate* appDelegate = (IGAppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate.instagram authorize:[NSArray arrayWithObjects:@"comments", @"likes", nil]];
+}
+- (void)igDidLogin {
+    IGListViewController* viewController = [[IGListViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+@end
+</code></pre>
+
+<p>First we do some setup for instagram in viewDidLoad. Then when the login button(login:) is pressed we go to login with instagram. If successful we execute the igDidLogin method and show the user a new screen.</p>
+
+<p><em>We knew from the beginning we were going to have facebook login as well. So let's try and squeze that into this screen and see what happens.</em></p>
+
+<pre><code class="language-objc">#import "IGViewController.h"
+#import "IGAppDelegate.h"
+#import "IGListViewController.h"
+#import &lt;FBSDKCoreKit/FBSDKCoreKit.h&gt;
+#import &lt;FBSDKLoginKit/FBSDKLoginKit.h&gt;
+
+#define APP_ID @"fd725621c5e44198a5b8ad3f7a0ffa09"
+@implementation IGViewController
+- (void)viewDidLoad {
+    [super viewDidLoad];   
+    IGAppDelegate* appDelegate = (IGAppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelegate.instagram = [[Instagram alloc] initWithClientId:APP_ID
+                                                       delegate:nil];
+    appDelegate.instagram.sessionDelegate = self;
+}
+- (IBAction)login:(id)sender {
+    IGAppDelegate* appDelegate = (IGAppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate.instagram authorize:[NSArray arrayWithObjects:@"comments", @"likes", nil]];
+}
+- (IBAction)loginWithFacebook:(id)sender {
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logInWithReadPermissions: @[@"public_profile"]
+                 fromViewController:self
+                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                if (error) {
+                                    NSLog(@"Process error");
+                                } else if (result.isCancelled) {
+                                    NSLog(@"Cancelled");
+                                } else {
+                                    NSLog(@"Logged in");
+                                }
+                            }];
+}
+#pragma - IGSessionDelegate
+-(void)igDidLogin {
+    IGListViewController* viewController = [[IGListViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+@end
+</code></pre>
+
+<p><strong>Phew, squeezed that in</strong></p>
+
+<p>Now it should start bothering you. Imagine you had to add twitter login, how many lines of code and complexity would that add? <br />
+A lot. It would look something like this:</p>
+
+<pre><code class="language-objc">- (void)succesLogin {
+    NSString *loggedInUserName;
+    NSString *apiToken;
+    if ([FBSDKLoginManager isLoggedIn]) {
+        loggedInUserName = [FBSDKLoginManager loggedInUser];
+        apiToken = [FBSDKLoginManager loggedInUser];
+    } else if ([Instagram isUserLoggedIn]) {
+        loggedInUserName = [Instagram sharedUser];
+        apiToken = nil;
+    }
+}
+</code></pre>
+
+<p>Okay. So having everything in a ViewController class is not a good strategy. Speaking of strategies:</p>
+
+<p><img src="../content/images/2015/10/Strategy_Pattern_in_UML.png" alt="Title" /></p>
+
+<p>This is the strategy pattern. It was originally introduced by the <a href="https://en.wikipedia.org/wiki/Design_Patterns">Gang of four</a>. It looks like it could save us. What if we had an <strong>InstagramAuthenticator</strong>, and a <strong>FacebookAuthenticator</strong>, and just call them using an interface. </p>
+
+<p>The strategy pattern speaks to the larger idea of the <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open Closed principle</a> which says that a system should be <strong>open</strong> for extension but <strong>closed</strong> for modification.</p>
+
+<p>Translation: You should be able to add new ways to login into your app without changing the source code. Sounds unbelievable.</p>
+
+<p>I also didn't believe this so here is a <a href="https://github.com/thebugcode/OpenClosed">Demo</a></p>
+
+<p>Okay, so here's how the view controller has been transformed so that you can change it's behaviour without changing it's source code:  </p>
+
+<pre><code class="language-objc">#import "IGViewController.h"
+#import "IGListViewController.h"
+
+@interface IGViewController() &lt;AuthenticationDelegate&gt;
+@property (strong, nonatomic) id&lt;Authenticator&gt; authenticator;
+@end
+
+@implementation IGViewController
+
+- (IBAction)login:(id)sender {
+    [self performLogin];
+}
+- (IBAction)loginWithFacebook:(id)sender {
+    [self performLogin];
+}
+- (void)performLogin {
+    [self.authenticator setDelegate:self];
+    [self.authenticator login];
+}
+#pragma - AuthenticationDelegate
+- (void)authenticationDidSucceedWithUserName:(NSString *)username {
+    IGListViewController* viewController = [[IGListViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+- (void)authenticationDidFail {
+    NSLog(@"Error");
+}
+@end
+</code></pre>
+
+<p>The View Controller now knows about an Interface. The <em>Authenticator</em> interface. (Quickly check the strategy pattern UML diagram). </p>
+
+<p>Here is the interface:  </p>
+
+<pre><code class="language-objc">@protocol Authenticator &lt;NSObject&gt;
+- (void)login;
+- (void)setDelegate:(id&lt;AuthenticationDelegate&gt;)delegate;
+@end
+</code></pre>
+
+<p>And you can implement this interface and pass that object to the view controller. That's how you extend it's behaviour without changing the view controller source code.  </p>
+
+<pre><code class="language-objc">@interface RandomAuthenticator()
+@property (weak, nonatomic) id&lt;AuthenticationDelegate&gt; delegate;
+@end
+
+@implementation RandomAuthenticator
+
+- (void)login {
+    if ([self randomValue] &gt; 1000) {
+        [self.delegate authenticationDidSucceedWithUserName:@"Dan"];
+    } else {
+        [self.delegate authenticationDidFail];
+    }
+}
+
+- (void)setDelegate:(id&lt;AuthenticationDelegate&gt;)delegate {
+    _delegate = delegate;
+}
+
+- (int)randomValue {
+    int value = rand();
+    return value;
+}
+@end
+</code></pre>
+
+<p>But also, don't forget to use this random authenticator  </p>
+
+<pre><code class="language-objc">    IGViewController *topVC = [self topViewController];
+    topVC.authenticator = [[RandomAuthenticator alloc] init];
+</code></pre>
+
+<p>You see how we changed the view controller's behaviour without it even knowing? Open Closed principle at it's best.</p>
+
+<p>How does this tie into framework dependency disease? Well, whenever you add a new external library you should use the same pattern, create an interface, abstract yourself from that specific framework. Whenever a new, better framework comes around, you can ditch the old one and use the new one instantly.</p>
+
+<p><mark>The moral of the story is that loose coupling is nice</mark></p>
+
+<p>Advantages of the  Open Closed principle: <br />
+1. You can split work between the UI, and logging mechanism. <br />
+2. The login mechanism is completely independent of the UI, so you can always reuse it in another part of the or in totally different app. <br />
+3. Team members can work on different flavours of login at the same time. <br />
+4. You can estimate how much time it takes to implement instagram login and facebook login. Then decide based on your needs and resources. <br />
+5. You can always add new logging mechanism by changing nothing else. <br />
+6. Your ViewController is much smaller and nicer. <br />
+7. Classes have a single responsibility. <br />
+8. You can work with a Mocked authenticator until a real one is developed. So you can develop the UI First and not be blocked. <br />
+9. You can Unit test, by mocking the authenticator. <br />
+10. Do i need to continue?</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Open Closed Principle or the cure to the framework dependency disease&url=http://thebugcode.github.io/openclosedprinciple/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/openclosedprinciple/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/openclosedprinciple/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../what-programming-language-should-beginners-learn/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">What programming language should beginners learn?</h2>
+							<p class="post-nav-excerpt">As a non-technical person, representative of the bugs class, the code bug&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=8ebc89f349"></script>
+
+	
+
+</body>
+</html>
