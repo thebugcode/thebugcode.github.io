@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>CoreData to Realm in 5 minutes</title>
+	<meta name="description" content="This article details an architecture for decoupling from the database Storage mechanism" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=8ebc89f349" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CoreData to Realm in 5 minutes" />
+    <meta property="og:description" content="This article details an architecture for decoupling from the database Storage mechanism" />
+    <meta property="og:url" content="http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/" />
+    <meta property="article:published_time" content="2015-10-31T08:30:07.495Z" />
+    <meta property="article:modified_time" content="2015-10-31T08:36:15.985Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CoreData to Realm in 5 minutes" />
+    <meta name="twitter:description" content="This article details an architecture for decoupling from the database Storage mechanism" />
+    <meta name="twitter:url" content="http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "CoreData to Realm in 5 minutes",
+    "url": "http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/",
+    "datePublished": "2015-10-31T08:30:07.495Z",
+    "dateModified": "2015-10-31T08:36:15.985Z",
+    "description": "This article details an architecture for decoupling from the database Storage mechanism"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">How to switch from CoreData to Realm in 5 minutes</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-10-31">31 Oct 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>Hi from the CodeBug :) <br />
+I have been at work disturbing programmers this week. Also, a new idea popped into this tiny head. <br />
+<mark> What if we could abstract ourselves from the database storage mechanism</mark></p>
+
+<p>Should your app really care about wether its storing its data in CoreData or a Text file? <br />
+The storage mechanism is not the core of your app. If you change it, users wont even notice. The storage mechanism is just a detail.</p>
+
+<p><mark> How do we design an iOS app such that you can easily change from CoreData to Realm?</mark></p>
+
+<pre><code class="language-swift">protocol DatabaseProtocol {  
+    func readDataFromDatabase() -&gt; NSData
+    func writeDataToDatabase(data: NSData)
+    func dropDataBase()
+    func createDatabase()
+}
+
+class DatabaseGate: NSObject {  
+    static private let databaseSingleton = CoreDataImplementor()
+    class func defaultDatabase() -&gt; DatabaseProtocol {
+        return databaseSingleton
+    }
+}
+
+private class CoreDataImplementor: DatabaseProtocol {  
+    func readDataFromDatabase() -&gt; NSData {
+        //write your implementation
+        return NSData()
+    }
+
+    func writeDataToDatabase(data: NSData) {
+        // write your implementation
+    }
+    func dropDataBase() {
+        //write your implementation
+    }
+    func createDatabase() {
+        //write your implementation
+    }
+}
+</code></pre>
+
+<p>Explanation: <br />
+1. We create a database singleton. <br />
+2. We make sure our defaultDatabase method does not return a specific object instead, it returns something which implements DatabaseProtocol <br />
+3. We implement that protocol with CoreData.</p>
+
+<p>So how would you use this mechanism? </p>
+
+<pre><code class="language-swift">   let databaseGateway = DatabaseGate.defaultDatabase()
+        databaseGateway.writeDataToDatabase(NSData())
+</code></pre>
+
+<p>Cool huh? No mention of CoreData, Realm or SQL. Just the plain simple truth: databaseGateway please write this NSData.</p>
+
+<p>This will allow you to change from CoreData to Realm in 5 minutes. <br />
+Just implement the protocol with Realm and you're done. No autographs from the Code Bug today.</p>
+
+<p>This speaks to a greater idea: <br />
+<mark> Program against an interface not an implementaiton</mark></p>
+
+<p>PS: Don't couple yourself to Realm or any other framework too much. You never know when you need to make yet another switch.</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=How to switch from CoreData to Realm in 5 minutes&url=http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/how-to-switch-from-coredata-to-realm/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../open-closed-principle-for-ios/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">Open Closed Principle or the cure to the framework dependency disease</h2>
+							<p class="post-nav-excerpt">Hi there bugs. Today's topic is about a nice architectural pattern.  Imagine&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=8ebc89f349"></script>
+
+	
+
+</body>
+</html>
