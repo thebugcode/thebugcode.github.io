@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>iOS app testing, the game changer</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=a9f4fca8c1" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/ios-app-testing-the-game-changer/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="iOS app testing, the game changer" />
+    <meta property="og:description" content="Hi there bugs,  Recently Apple introduced this new technology called Xcode UI Tests. Documentation in the link. Just kidding, there&#x27;s no online documentation. Why does the code bug care. Well, if up until now you tested your iOS apps manually..." />
+    <meta property="og:url" content="http://thebugcode.github.io/ios-app-testing-the-game-changer/" />
+    <meta property="article:published_time" content="2015-11-09T23:40:30.878Z" />
+    <meta property="article:modified_time" content="2015-11-10T00:09:50.877Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="iOS app testing, the game changer" />
+    <meta name="twitter:description" content="Hi there bugs,  Recently Apple introduced this new technology called Xcode UI Tests. Documentation in the link. Just kidding, there&#x27;s no online documentation. Why does the code bug care. Well, if up until now you tested your iOS apps manually..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/ios-app-testing-the-game-changer/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "iOS app testing, the game changer",
+    "url": "http://thebugcode.github.io/ios-app-testing-the-game-changer/",
+    "datePublished": "2015-11-09T23:40:30.878Z",
+    "dateModified": "2015-11-10T00:09:50.877Z",
+    "description": "Hi there bugs,  Recently Apple introduced this new technology called Xcode UI Tests. Documentation in the link. Just kidding, there&#x27;s no online documentation. Why does the code bug care. Well, if up until now you tested your iOS apps manually..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">iOS app testing, the game changer</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-11-10">10 Nov 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>Hi there bugs, <br />
+Recently Apple introduced this new technology called <a href="https://forums.developer.apple.com/thread/7230">Xcode UI Tests</a>. Documentation in the link. Just kidding, there's no online documentation.</p>
+
+<p>Why does the code bug care. Well, if up until now you tested your iOS apps manually like this: <br />
+<img src="../content/images/2015/11/testingIpad-1.jpg" alt="ManualTesting" />
+The code bug knows how boring this can be. <br />
+What you can now do is press Command + U and let the tests run themselves like this:</p>
+
+<iframe width="400" height="315" src="https://www.youtube.com/embed/bL673VeMr00" frameborder="0" allowfullscreen></iframe>
+
+<p>But Code Bug you yell, I saw in the video that we  have to write code. You know we don't like to write code. </p>
+
+<p>Well, here is how you create those tests. <strong>You record them :</strong>  </p>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/-o4CN9WJMko" frameborder="0" allowfullscreen></iframe>  
+
+<p>You press the record button tap button and code is magically generated.</p>
+
+<p>After you have them all recorded, run your UI tests by typing this:  </p>
+
+<pre><code class="language-bash">xcodebuild -scheme "SchemeName" \  
+           -sdk iphonesimulator \
+           -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0'
+test  
+</code></pre>
+
+<p>See <a href="https://krausefx.com/blog/run-xcode-7-ui-tests-from-the-command-line">Felix Krausse's</a> article to get more details.</p>
+
+<p>If you want to test for something XCTAssert is your friend. You can have conditions like the existence of a button:</p>
+
+<pre><code class="language-swift">XCTAssertTrue(app.buttons["Login"].exists)  
+</code></pre>
+
+<p>Or check that a table has only one row  </p>
+
+<pre><code class="language-swift">XCTAssertTrue(app.tables.cells.count == 1)  
+</code></pre>
+
+<p>To get more information on how to test and check items on screen <a href="https://developer.apple.com/videos/play/wwdc2015-406/">including demos go to Apple's website</a>.</p>
+
+<p>Hopefully this will save you massive amounts of time. If you don't know Swift, don't worry, your developer most likely does. Automate your UI Tests will increase your productivity by at least a factor of two. Any investment is worth it </p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=iOS app testing, the game changer&url=http://thebugcode.github.io/ios-app-testing-the-game-changer/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/ios-app-testing-the-game-changer/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/ios-app-testing-the-game-changer/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../how-to-switch-from-coredata-to-realm/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">How to switch from CoreData to Realm in 5 minutes</h2>
+							<p class="post-nav-excerpt">Hi from the CodeBug :)  I have been at work disturbing programmers this&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=a9f4fca8c1"></script>
+
+	
+
+</body>
+</html>
