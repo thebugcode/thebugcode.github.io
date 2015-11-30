@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Alpha/Beta/Live and app Versioning done in Swift</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=88d49fd216" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Alpha/Beta/Live and app Versioning done in Swift" />
+    <meta property="og:description" content="Hello CodeBugs, So you have an app you are going to rock the AppStore with. But first you need proper versioning so you create a new Xcode project and it gives you the following two Configurations:  Debug and Release. So..." />
+    <meta property="og:url" content="http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/" />
+    <meta property="article:published_time" content="2015-11-30T16:28:10.021Z" />
+    <meta property="article:modified_time" content="2015-11-30T20:22:14.725Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Alpha/Beta/Live and app Versioning done in Swift" />
+    <meta name="twitter:description" content="Hello CodeBugs, So you have an app you are going to rock the AppStore with. But first you need proper versioning so you create a new Xcode project and it gives you the following two Configurations:  Debug and Release. So..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "Alpha/Beta/Live and app Versioning done in Swift",
+    "url": "http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/",
+    "datePublished": "2015-11-30T16:28:10.021Z",
+    "dateModified": "2015-11-30T20:22:14.725Z",
+    "description": "Hello CodeBugs, So you have an app you are going to rock the AppStore with. But first you need proper versioning so you create a new Xcode project and it gives you the following two Configurations:  Debug and Release. So..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Alpha/Beta/Live and app Versioning done in Swift</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-11-30">30 Nov 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>Hello CodeBugs,</p>
+
+<p>So you have an app you are going to <strong>rock</strong> the AppStore with. But first you need proper versioning so you create a new Xcode project and it gives you the following two Configurations: <br />
+<em>Debug</em> and <em>Release</em>.
+<img src="../content/images/2015/11/Screen-Shot-2015-11-30-at-17-15-27.png" alt="" /></p>
+
+<p>So now presumably you want to distribute this app via <strong>HockeyApp</strong>. HockeyApp like other app distribution services use a metaphor of alpha / beta and live apps in line with the industry's gold standard <a href="http://nvie.com/posts/a-successful-git-branching-model/">gitflow workflow</a></p>
+
+<p>So what is  <strong>Alpha/Beta/Live</strong>? Let's take this directly from the Pro's, <a href="http://support.hockeyapp.net/kb/app-management-2/how-to-organize-development-and-production-apps-for-distribution">HockeyApp documentation says this</a>:  </p>
+
+<blockquote>
+  <p>We highly recommend to create independent apps in HockeyApp for your development and production versions for the AppStore or Google Play. This way you can use independent bundle identifiers and both apps can run in parallel on the same device. HockeyApp offers four pre-defined release types:</p>
+  
+  <p>alpha <br />
+  beta <br />
+  <del>enterprise</del> <br />
+  store</p>
+</blockquote>
+
+<p>Even if you don't use HockeyApp you would still want to have at least 3 Configurations: <br />
+alpha - builds from the development branch <br />
+beta - builds from a tag or a release branch <br />
+(App) store - builds from the master branch</p>
+
+<p>Let's create the 3 Configurations: <br />
+<img src="../content/images/2015/11/Screen-Shot-2015-11-30-at-17-34-23-1.png" alt="" /></p>
+
+<p>We duplicate the Release configuration and create two new Configurations Alpha and Beta.</p>
+
+<p>Here is the final result: <br />
+<img src="../content/images/2015/11/Screen-Shot-2015-11-30-at-17-34-45.png" alt="" /></p>
+
+<p>Wait a second mister. What is Debug doing here, and where is the store configuration? <br />
+It very simple:</p>
+
+<ul>
+<li><p><strong>Debug</strong> - for debugging purposes, creates a larger executable with more debug info (see optimization flags)</p></li>
+<li><p><strong>Alpha</strong> - for alpha builds</p></li>
+<li><p><strong>Beta</strong> - for beta builds</p></li>
+<li><p><strong>Release</strong> - for Store builds, but we keep it named Release.</p></li>
+</ul>
+
+<p>Each of these should receive a unique <a href="https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070">CFBundleIdentifier</a>.</p>
+
+<p>As always, you may have a 3rd party service (Hockey, Mixpanel, Facebook) requiring different setup based on your release type . Up until now we used to do this:</p>
+
+<pre><code class="language-objc">    #if ALPHA
+    let serviceID = "123141asd12"
+    #elseif BETA
+    let serviceID = "ae7641fdd15"
+    #elseif STORE
+    let serviceID = "gl3141asd16"
+    #endif
+
+    override func viewDidLoad() {
+     configureExternalServiceWithIdentifier(serviceID)
+    }
+</code></pre>
+
+<p>But this is error prone. You can run <a href="https://github.com/thebugcode/iOSAppVersioning/releases/tag/1.0">this source code</a> and see that every Schema compiles except for the Debug one</p>
+
+<p>We forgot to add an #ifdef DEBUG. The compiler said nothing and the error is only seen when you switch to the Debug scheme and try to compile it. Now, you most likely have ifdef's in many places in your source code so you will forget to add an #ifdef here and there causing massive trouble.</p>
+
+<p>The Swift compiler to the rescue.</p>
+
+<p>Swift is a safe language. If we were to have an enum with the release type that would force us to treat each app configuration, and we would always get a compilation error if we forgot to treat one Configuration.</p>
+
+<p>First we declare an Enum. Swift enums allow us to add methods to them. So we add a method which tells us what the current Configuration is:</p>
+
+<pre><code class="language-objc">//
+//  ReleaseType.swift
+//  iOSVersioningTestProject
+//
+//  Created by Dan Ursu on 30/11/15.
+//  Copyright © 2015 Dan Ursu. All rights reserved.
+//
+
+import Foundation  
+enum ReleaseType {  
+    case Unknown
+    case Debug
+    case Alpha
+    case Beta
+    case Store
+
+    static func currentConfiguration() -&gt; ReleaseType {
+        #if DEBUG
+            return .Debug
+        #elseif ALPHA
+            return .Alpha
+        #elseif BETA
+            return .Beta
+        #elseif STORE
+            return .Store
+        #else
+            return Unknown
+        #endif
+    }
+}
+</code></pre>
+
+<p>Now, our previously unsafe code looks like this:</p>
+
+<pre><code class="language-objc">  switch(ReleaseType.currentConfiguration()) {
+        case .Debug:
+            serviceID = "SomeID"
+        case .Alpha:
+            serviceID = "123141asd12"
+        case .Beta:
+            serviceID = "ae7641fdd15"
+        case .Store:
+            serviceID = "gl3141asd16"
+        case .Unknown:
+            serviceID = ""
+        }
+    configureExternalServiceWithIdentifier(serviceID)
+</code></pre>
+
+<p>Now, when we forget to treat one app configuration, the compiler will give us an error when the Switch does not cover all cases: <br />
+<img src="../content/images/2015/11/Screen-Shot-2015-11-30-at-21-02-13.png" alt="" /></p>
+
+<p>PS: Keep the ReleaseType enum pure and let it only handle the release type. Don't make extensions on it for CrashLytics or GoogleAnalytics, because it will grow and and it will get a lot of responsibilities.</p>
+
+<p>Also don't add code to it because the ReleaseType enum is not unit testable, the more code you add to it, the more you won't be able to test. It's not testable because you can't inject compiler flags, and even if you could, it would be a bad idea. </p>
+
+<p>Question: Isn't this shifting the problem of safety to the enum? If we forget to add a case to the enum we will still have trouble.</p>
+
+<p>Answer: Yes, the ReleaseType enum is still unsafe. It depends on compiler flags, so if we were to add a new Configuration + build Scheme to our app it would still fail in an obscure way. But at least we have this problem contained. The rest of our app will be safe as long as it is using this enum.</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Alpha/Beta/Live and app Versioning done in Swift&url=http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/ios-alpha-beta-live-and-app-versioning-in-swift/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../xzibit/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">XZibit</h2>
+							<p class="post-nav-excerpt">Hi from the CodeBug.  Do you know what bugs the code bug?&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=88d49fd216"></script>
+
+	
+
+</body>
+</html>
