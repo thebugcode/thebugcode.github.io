@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Goodbye ++  and -- operator and how the code bug contributed to a change in Swift 3.0</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=d6852bed0b" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/goodbye-and-operator/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Goodbye ++  and -- operator and how the code bug contributed to a change in Swift 3.0" />
+    <meta property="og:description" content="Hi CodeBugs, As Swift is now open-source the code bug follows swift mailing lists, so here is a piece of information you may have missed: Swift 3.0 is coming in the fall of 2016. The nice thing is that..." />
+    <meta property="og:url" content="http://thebugcode.github.io/goodbye-and-operator/" />
+    <meta property="article:published_time" content="2015-12-06T11:22:25.849Z" />
+    <meta property="article:modified_time" content="2015-12-06T11:29:13.488Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Goodbye ++  and -- operator and how the code bug contributed to a change in Swift 3.0" />
+    <meta name="twitter:description" content="Hi CodeBugs, As Swift is now open-source the code bug follows swift mailing lists, so here is a piece of information you may have missed: Swift 3.0 is coming in the fall of 2016. The nice thing is that..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/goodbye-and-operator/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "Goodbye ++  and -- operator and how the code bug contributed to a change in Swift 3.0",
+    "url": "http://thebugcode.github.io/goodbye-and-operator/",
+    "datePublished": "2015-12-06T11:22:25.849Z",
+    "dateModified": "2015-12-06T11:29:13.488Z",
+    "description": "Hi CodeBugs, As Swift is now open-source the code bug follows swift mailing lists, so here is a piece of information you may have missed: Swift 3.0 is coming in the fall of 2016. The nice thing is that..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Goodbye ++  and -- operator and how the code bug contributed to a change in Swift 3.0</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-12-06">06 Dec 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>Hi CodeBugs,</p>
+
+<p>As Swift is now open-source the code bug follows swift mailing lists, so here is a piece of information you may have missed:</p>
+
+<p>Swift 3.0 <a href="https://github.com/apple/swift-evolution#development-major-version--swift-30">is coming</a> in the fall of 2016. The nice thing is that we know what is coming and can be prepared.</p>
+
+<p>One of the accepted changes is removing the ++ and -- operators from the language. Here is the <a href="https://github.com/apple/swift-evolution#development-major-version--swift-30">pull request to Remove the ++ and -- operators</a>. The best thing to do is to avoid having any ++ and -- operators. If we don't do this, the Xcode Swift migrator will do this for us. </p>
+
+<p>But hey, what about all these for loops we have:  </p>
+
+<pre><code class="language-objc">for (var i = 0; i &lt; 5; i++) {  
+    // code
+}
+</code></pre>
+
+<p>Yeah.. say goodbye to them too. Here is the merged Pull request <a href="https://github.com/apple/swift-evolution/pull/23">Proposal to remove C-Style For-Loops from Swift 3.0</a></p>
+
+<p>If you are like me you're wondering what will you do without C-style for loops. But I quickly realised that I haven't used this kind of for loop in a long time and .map and for in has reduced my need for it.</p>
+
+<p>The Code Bug himself took part in one discussion, for <a href="https://github.com/hartbit/swift-evolution/commit/9d6f3c0015ceeffe87b2fd0c7d5fa749ed14fc04">re-instating self as mandatory for iVar access</a>. The arguments are compelling. If it gets merged, you should also start using "self." for accessing iVars. This to avoid another code migration when and if this change happens.</p>
+
+<p>PS: Given how "open" Apple is about future plans, it's wonderful that the Swift team managed to open source the language. Congratulations to the Swift team for the effort.</p>
+
+<p>PPS: If you are curious about the future of Swift, there is the swift-evolution <a href="https://lists.swift.org/mailman/listinfo">mailing list</a> where you can discuss and debate things. Follow the GitHub page updates, and look at Pull Requests.</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Goodbye ++  and -- operator and how the code bug contributed to a change in Swift 3.0&url=http://thebugcode.github.io/goodbye-and-operator/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/goodbye-and-operator/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/goodbye-and-operator/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../ios-alpha-beta-live-and-app-versioning-in-swift/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">Alpha/Beta/Live and app Versioning done in Swift</h2>
+							<p class="post-nav-excerpt">Hello CodeBugs, So you have an app you are going to rock&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=d6852bed0b"></script>
+
+	
+
+</body>
+</html>
