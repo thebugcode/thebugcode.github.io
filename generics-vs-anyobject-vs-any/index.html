@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Generics vs AnyObject vs Any</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=6ffd4b42a6" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/generics-vs-anyobject-vs-any/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Generics vs AnyObject vs Any" />
+    <meta property="og:description" content="Hi codebugs, Today we will speak about AnyObject and generics. What is AnyObject anyway? In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any which just return the input argument:..." />
+    <meta property="og:url" content="http://thebugcode.github.io/generics-vs-anyobject-vs-any/" />
+    <meta property="article:published_time" content="2015-12-28T23:08:28.960Z" />
+    <meta property="article:modified_time" content="2015-12-28T23:08:28.959Z" />
+    <meta property="article:tag" content="swift" />
+    <meta property="article:tag" content="generics" />
+    <meta property="article:tag" content="anyobject" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Generics vs AnyObject vs Any" />
+    <meta name="twitter:description" content="Hi codebugs, Today we will speak about AnyObject and generics. What is AnyObject anyway? In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any which just return the input argument:..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/generics-vs-anyobject-vs-any/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "Generics vs AnyObject vs Any",
+    "url": "http://thebugcode.github.io/generics-vs-anyobject-vs-any/",
+    "datePublished": "2015-12-28T23:08:28.960Z",
+    "dateModified": "2015-12-28T23:08:28.959Z",
+    "keywords": "swift, generics, anyobject",
+    "description": "Hi codebugs, Today we will speak about AnyObject and generics. What is AnyObject anyway? In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any which just return the input argument:..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template tag-swift tag-generics tag-anyobject">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Generics vs AnyObject vs Any</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-12-29">29 Dec 2015</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post tag-swift tag-generics tag-anyobject">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>Hi codebugs,</p>
+
+<p>Today we will speak about AnyObject and generics. What is AnyObject anyway?</p>
+
+<p>In simple terms, <strong>AnyObject</strong> is Swift's analogue to Objective-C's <strong>id</strong>. </p>
+
+<p>Consider two functions, one with generics, the other with Any which just return the input argument:  </p>
+
+<pre><code class="language-Swift">   func operation&lt;T&gt;(x: T) -&gt; T { return x
+   }
+</code></pre>
+
+<pre><code class="language-Swift">   func operation(x: Any) -&gt; Any { return x
+   }
+</code></pre>
+
+<p>The first function, preserves the type of the input argument for us. If we pass in an Int, it returns an Int.</p>
+
+<p>The second version of this function dodges the Swift type system and you should try to avoid it. It is there because when working with Cocoa APIs, it is common to receive an array with a type of [AnyObject]. </p>
+
+<p>Also, as a side note it may be a good time to consult the [Apple documentation] (<a href="https://developer.apple.com/library/mac/documentation/Swift/Conceptual/Swift">https://developer.apple.com/library/mac/documentation/Swift/Conceptual/Swift</a><em>Programming</em>Language/TypeCasting.html) on the difference between Any and AnyObject:  </p>
+
+<blockquote>
+  <p>Swift provides two special type aliases for working with non-specific types:</p>
+  
+  <ul>
+  <li>AnyObject can represent an instance of any class type.</li>
+  <li>Any can represent an instance of any type at all, including function types.</li>
+  </ul>
+</blockquote>
+
+<p>There it is, we now know what is Any, AnyObject and Generics are and their intended purpose. Happy coding, bugs :)</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Generics vs AnyObject vs Any&url=http://thebugcode.github.io/generics-vs-anyobject-vs-any/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/generics-vs-anyobject-vs-any/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/generics-vs-anyobject-vs-any/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					<a href="../tag/swift/index.html">swift</a> <a href="../tag/generics/index.html">generics</a> <a href="../tag/anyobject/index.html">anyobject</a>
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../goodbye-and-operator/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">Goodbye ++  and -- operator and how to contribute to Swift 3.0</h2>
+							<p class="post-nav-excerpt">Hi CodeBugs, As Swift is now open-source the code bug follows swift&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template tag-swift tag-generics tag-anyobject"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=6ffd4b42a6"></script>
+
+	
+
+</body>
+</html>
