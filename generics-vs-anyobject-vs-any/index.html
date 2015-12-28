@@ -18,17 +18,17 @@
     <meta property="og:site_name" content="The Code Bug" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Generics vs AnyObject vs Any" />
-    <meta property="og:description" content="Hi codebugs, Today we will speak about AnyObject and generics. What is AnyObject anyway? In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any which just return the input argument:..." />
+    <meta property="og:description" content="Hi Codebugs,  Today we will speak about AnyObject and generics. What is AnyObject anyway?  In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any both of which just return the..." />
     <meta property="og:url" content="http://thebugcode.github.io/generics-vs-anyobject-vs-any/" />
     <meta property="article:published_time" content="2015-12-28T23:08:28.960Z" />
-    <meta property="article:modified_time" content="2015-12-28T23:10:56.940Z" />
+    <meta property="article:modified_time" content="2015-12-28T23:13:21.015Z" />
     <meta property="article:tag" content="swift" />
     <meta property="article:tag" content="generics" />
     <meta property="article:tag" content="anyobject" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Generics vs AnyObject vs Any" />
-    <meta name="twitter:description" content="Hi codebugs, Today we will speak about AnyObject and generics. What is AnyObject anyway? In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any which just return the input argument:..." />
+    <meta name="twitter:description" content="Hi Codebugs,  Today we will speak about AnyObject and generics. What is AnyObject anyway?  In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any both of which just return the..." />
     <meta name="twitter:url" content="http://thebugcode.github.io/generics-vs-anyobject-vs-any/" />
     
     <script type="application/ld+json">
@@ -47,9 +47,9 @@
     "headline": "Generics vs AnyObject vs Any",
     "url": "http://thebugcode.github.io/generics-vs-anyobject-vs-any/",
     "datePublished": "2015-12-28T23:08:28.960Z",
-    "dateModified": "2015-12-28T23:10:56.940Z",
+    "dateModified": "2015-12-28T23:13:21.015Z",
     "keywords": "swift, generics, anyobject",
-    "description": "Hi codebugs, Today we will speak about AnyObject and generics. What is AnyObject anyway? In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any which just return the input argument:..."
+    "description": "Hi Codebugs,  Today we will speak about AnyObject and generics. What is AnyObject anyway?  In simple terms, AnyObject is Swift&#x27;s analogue to Objective-C&#x27;s id.  Consider two functions, one with generics, the other with Any both of which just return the..."
 }
     </script>
 
@@ -110,13 +110,11 @@
 		<div class="inner">
 		
 			<section class="post-content">
-				<p>Hi codebugs,</p>
+				<p>Hi Codebugs, <br />
+Today we will speak about AnyObject and generics. What is AnyObject anyway? <br />
+In simple terms, <strong>AnyObject</strong> is Swift's analogue to Objective-C's <strong>id</strong>. </p>
 
-<p>Today we will speak about AnyObject and generics. What is AnyObject anyway?</p>
-
-<p>In simple terms, <strong>AnyObject</strong> is Swift's analogue to Objective-C's <strong>id</strong>. </p>
-
-<p>Consider two functions, one with generics, the other with Any which just return the input argument:  </p>
+<p>Consider two functions, one with generics, the other with Any both of which just return the input argument:  </p>
 
 <pre><code class="language-Swift">   func operation&lt;T&gt;(x: T) -&gt; T {
       return x
@@ -128,7 +126,7 @@
    }
 </code></pre>
 
-<p>The first function, preserves the type of the input argument for us. If we pass in an Int, it returns an Int.</p>
+<p>The first function, preserves the type of the input argument for us thanks to generics.  If we pass in an Int, it returns an Int because the compiler can perform <a href="https://www.google.nl/search?client=safari&amp;rls=en&amp;q=generic+specialization+swift&amp;ie=UTF-8&amp;oe=UTF-8&amp;gfe_rd=cr&amp;ei=wsGBVsrmKayH8QfE36CIAQ">generic specialisation</a> for us and infer the return type.</p>
 
 <p>The second version of this function dodges the Swift type system and you should try to avoid it. AnyObject is there because when working with Cocoa APIs, it is common to receive an array with a type of [AnyObject]. </p>
 
