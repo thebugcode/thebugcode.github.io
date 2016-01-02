@@ -10,7 +10,7 @@
 	<meta name="HandheldFriendly" content="True" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css?v=6ffd4b42a6" />
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css?v=cccb666fa8" />
 
 	<link rel="canonical" href="http://thebugcode.github.io/" />
     <meta name="referrer" content="origin" />
@@ -99,6 +99,21 @@
 </div>
 
 
+<article class="post">
+	<div class="inner">
+		<header class="post-header">
+			<h2 class="post-title"><a href="id-__weak-weakself-self-in-swift/index.html">WeakSelf done right in Swift</a></h2>
+			<span class="post-meta"><a href="author/the-code-bug/index.html">The Code Bug</a>  | <time datetime="2016-01-02">02 Jan 2016</time></span>
+			<div class="clear"></div>
+		</header>
+
+		<section class="post-excerpt">
+			<p>Hi CodeBugs, A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this: id __weak weakSelf = self   [self doSomethingWithCompletionBlock: ^{     [weakSelf updateUI]; }]; In Swift we can(and should) use capture lists to achieve&hellip;</p>
+		</section>
+	</div>
+</article>
+
+
 <article class="post tag-swift tag-generics tag-anyobject">
 	<div class="inner">
 		<header class="post-header">
@@ -159,21 +174,6 @@
 </article>
 
 
-<article class="post">
-	<div class="inner">
-		<header class="post-header">
-			<h2 class="post-title"><a href="did-i-hire-professional-ios-developers-how-to-tell/index.html">Did I hire professional iOS developers? How to tell</a></h2>
-			<span class="post-meta"><a href="author/the-code-bug/index.html">The Code Bug</a>  | <time datetime="2015-11-10">10 Nov 2015</time></span>
-			<div class="clear"></div>
-		</header>
-
-		<section class="post-excerpt">
-			<p>Hi from the Code Bug,  Here are 10 ways to detect that your iOS team acts professionally: Ask them to place the login screen somewhere deep in the app navigation hierarchy. A professional team will have every screen so atomic and decoupled that it can be placed anywhere. The way&hellip;</p>
-		</section>
-	</div>
-</article>
-
-
 <nav class="pagination" role="pagination">
 	<div class="inner">
 		<span class="pagination-info">Page 1 of 3</span>
@@ -196,7 +196,7 @@
 		</footer>
 	</section>
 
-	<script type="text/javascript" src="assets/js/script.js?v=6ffd4b42a6"></script>
+	<script type="text/javascript" src="assets/js/script.js?v=cccb666fa8"></script>
 
 	
 
