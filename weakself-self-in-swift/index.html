@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>A new Home Website</title>
+	<title>WeakSelf done right in Swift</title>
 	<meta name="description" content="" />
 
 	<meta name="HandheldFriendly" content="True" />
@@ -12,21 +12,21 @@
 
 	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=debd11cd2e" />
 
-	<link rel="canonical" href="http://thebugcode.github.io/a-new-home-website/" />
+	<link rel="canonical" href="http://thebugcode.github.io/weakself-self-in-swift/" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="The Code Bug" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="A new Home Website" />
-    <meta property="og:description" content="Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one..." />
-    <meta property="og:url" content="http://thebugcode.github.io/a-new-home-website/" />
-    <meta property="article:published_time" content="2015-10-08T12:31:54.356Z" />
-    <meta property="article:modified_time" content="2015-10-09T18:30:06.221Z" />
+    <meta property="og:title" content="WeakSelf done right in Swift" />
+    <meta property="og:description" content="Hi CodeBugs, A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this: id __weak weakSelf = self   [self doSomethingWithCompletionBlock: ^{     [weakSelf updateUI]; }]; In..." />
+    <meta property="og:url" content="http://thebugcode.github.io/weakself-self-in-swift/" />
+    <meta property="article:published_time" content="2016-01-02T03:49:51.679Z" />
+    <meta property="article:modified_time" content="2016-01-17T23:57:41.681Z" />
     
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="A new Home Website" />
-    <meta name="twitter:description" content="Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one..." />
-    <meta name="twitter:url" content="http://thebugcode.github.io/a-new-home-website/" />
+    <meta name="twitter:title" content="WeakSelf done right in Swift" />
+    <meta name="twitter:description" content="Hi CodeBugs, A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this: id __weak weakSelf = self   [self doSomethingWithCompletionBlock: ^{     [weakSelf updateUI]; }]; In..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/weakself-self-in-swift/" />
     
     <script type="application/ld+json">
 {
@@ -41,11 +41,11 @@
         "sameAs": null,
         "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
     },
-    "headline": "A new Home Website",
-    "url": "http://thebugcode.github.io/a-new-home-website/",
-    "datePublished": "2015-10-08T12:31:54.356Z",
-    "dateModified": "2015-10-09T18:30:06.221Z",
-    "description": "Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one..."
+    "headline": "WeakSelf done right in Swift",
+    "url": "http://thebugcode.github.io/weakself-self-in-swift/",
+    "datePublished": "2016-01-02T03:49:51.679Z",
+    "dateModified": "2016-01-17T23:57:41.681Z",
+    "description": "Hi CodeBugs, A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this: id __weak weakSelf = self   [self doSomethingWithCompletionBlock: ^{     [weakSelf updateUI]; }]; In..."
 }
     </script>
 
@@ -95,8 +95,8 @@
 				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
 			</span>
 		</nav>
-		<h1 class="post-title">A new Home Website</h1>
-		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2015-10-08">08 Oct 2015</time></span>
+		<h1 class="post-title">WeakSelf done right in Swift</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2016-01-02">02 Jan 2016</time></span>
 		
 	</div>
 </header>
@@ -106,54 +106,49 @@
 		<div class="inner">
 		
 			<section class="post-content">
-				<p>Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one for free. <br />
-We're hosted on GitHub and the site is small so it loads super fast. The code bug likes ultra-fast sites. He thinks your time is important.</p>
+				<p>Hi CodeBugs,</p>
 
-<h4 id="sowhatcanthecodebugsnewsitedo">So what can the code Bug's new site do?</h4>
+<p>A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this:</p>
 
-<p>As you are scrolling notice a orange bar at the top of the screen. Me likey.  </p>
-
-<h4 id="itloadsfast">It loads fast:</h4>
-
-<pre><code class="language-bash">time curl -s 'http://thebugcode.github.io' &gt; ~/Desktop/file.txt  
-Time    0.648s  
+<pre><code class="language-objc">id __weak weakSelf = self  
+[self doSomethingWithCompletionBlock: ^{
+    [weakSelf updateUI];
+}];
 </code></pre>
 
-<p>Those are Tesla acceleration numbers right there.</p>
+<p>In Swift we can(and should) use <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID57">capture lists</a> to achieve the same behaviour:  </p>
 
-<h4 id="whatelsecanitdo">What else can it do?</h4>
-
-<p>Blockquotes.  </p>
-
-<blockquote>
-  <p>It can pretend the Code Bug is quoting people he never actually read.</p>
-</blockquote>
-
-<h4 id="codesnipets">Code snipets</h4>
-
-<p>Syntax highlighting Swift code as if it were javascript. But hey, it works</p>
-
-<pre><code class="language-javascript">class SwiftClass {  
-    func foo() {
-    }
+<pre><code class="language-Swift">self.doSomethingWithCompletionBlock {[weak self, weak delegate = self.delegate!] in  
+    self.updateUI()
+    delegate.doSomething()
 }
 </code></pre>
 
-<div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-video" data-allowfullscreen="1" data-href="/JurnalDeObservator/videos/vb.417414651629353/900930309944449/?type=3"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/JurnalDeObservator/videos/900930309944449/"><a href="https://www.facebook.com/JurnalDeObservator/videos/900930309944449/">Amsterdamul și bicicletele :)</a><p>Amsterdamul e singurul oraș din lume în care numărul bicicletelor este mai mare ca cel al locuitorilor. Haideți să vă povestesc mai multe despre bicicletele din Amsterdam :)</p>Posted by <a href="https://www.facebook.com/JurnalDeObservator">Jurnal de observator</a> on Thursday, October 8, 2015</blockquote></div></div>
+<p>So what is <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Expressions.html#//apple_ref/doc/uid/TP40014097-CH32-ID544">the official definition of a capture list</a>?  </p>
 
-<p>At the end of the page we have disqus comments. Feel free to never use them and when you do, insult as many people as you can</p>
+<blockquote>
+  <p>A capture list is written as a comma separated list of expressions surrounded by square brackets, before the list of parameters. If you use a capture list, you must also use the in keyword, even if you omit the parameter names, parameter types, and return type.</p>
+</blockquote>
+
+<p>Capture lists are the better, native solution to the problem, so code like the following has no reason to exist:  </p>
+
+<pre><code class="language-Swift">weak var weakSelf = self  
+self.doSomethingWithCompletionBlock {  
+    weakSelf.updateUI()
+}
+</code></pre>
 			</section>
 			
 			<section class="post-info">
 				
 				<div class="post-share">
-					<a class="twitter" href="https://twitter.com/share?text=A new Home Website&url=http://thebugcode.github.io/a-new-home-website/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+					<a class="twitter" href="https://twitter.com/share?text=WeakSelf done right in Swift&url=http://thebugcode.github.io/weakself-self-in-swift/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
 					</a>
-					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/a-new-home-website/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/weakself-self-in-swift/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
 						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
 					</a>
-					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/a-new-home-website/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/weakself-self-in-swift/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
 						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
 					</a>
 					<div class="clear"></div>
@@ -187,11 +182,18 @@ Time    0.648s
 			</section>
 
 			<aside class="post-nav">
-					<a class="post-nav-next" href="../pimp-your-ios-app-icons/index.html">
+					<a class="post-nav-next" href="../the-3-promises-of-oop/index.html">
 						<section class="post-nav-teaser">
 							<i class="ic ic-arrow-left"></i>
-							<h2 class="post-nav-title">Tag your iOS App Icons</h2>
-							<p class="post-nav-excerpt">I ran into this issue a few days ago:     How do I&hellip;</p>
+							<h2 class="post-nav-title">The lies we say about OOP</h2>
+							<p class="post-nav-excerpt">It's a fresh new day, and the bug has no time to&hellip;</p>
+						</section>
+					</a>
+					<a class="post-nav-prev" href="../generics-vs-anyobject-vs-any/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">Generics vs AnyObject vs Any</h2>
+							<p class="post-nav-excerpt">Hi Codebugs,  Today we will speak about AnyObject and generics. What is&hellip;</p>
 						</section>
 					</a>
 				<div class="clear"></div>

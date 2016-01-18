@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>The lies we say about OOP</title>
+	<meta name="description" content="" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=debd11cd2e" />
+
+	<link rel="canonical" href="http://thebugcode.github.io/the-3-promises-of-oop/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="The Code Bug" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="The lies we say about OOP" />
+    <meta property="og:description" content="It&#x27;s a fresh new day, and the bug has no time to lose. Today&#x27;s topic: The principles of OOP.  When you ask someone what OOP is they might say:     OOP models real world objects in programming. That&#x27;s why it was..." />
+    <meta property="og:url" content="http://thebugcode.github.io/the-3-promises-of-oop/" />
+    <meta property="article:published_time" content="2016-01-18T00:37:01.414Z" />
+    <meta property="article:modified_time" content="2016-01-18T00:42:12.853Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The lies we say about OOP" />
+    <meta name="twitter:description" content="It&#x27;s a fresh new day, and the bug has no time to lose. Today&#x27;s topic: The principles of OOP.  When you ask someone what OOP is they might say:     OOP models real world objects in programming. That&#x27;s why it was..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/the-3-promises-of-oop/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "The Code Bug",
+    "author": {
+        "@type": "Person",
+        "name": "The Code Bug",
+        "image": "http://thebugcode.github.io/content/images/2015/10/avatar-1.jpg",
+        "url": "http://thebugcode.github.io/author/the-code-bug",
+        "sameAs": null,
+        "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
+    },
+    "headline": "The lies we say about OOP",
+    "url": "http://thebugcode.github.io/the-3-promises-of-oop/",
+    "datePublished": "2016-01-18T00:37:01.414Z",
+    "dateModified": "2016-01-18T00:42:12.853Z",
+    "description": "It&#x27;s a fresh new day, and the bug has no time to lose. Today&#x27;s topic: The principles of OOP.  When you ask someone what OOP is they might say:     OOP models real world objects in programming. That&#x27;s why it was..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="The Code Bug" href="http://thebugcode.github.io/rss/" />
+    <script>var disqus = 'thecodebug';</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69239121-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="post-template">
+	
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://thebugcode.github.io/">Home</a></li>
+			<li class="nav-rss"><a href="http://thebugcode.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+	
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://thebugcode.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">The lies we say about OOP</h1>
+		<span class="post-meta"><a href="../author/the-code-bug/index.html">The Code Bug</a> | <time datetime="2016-01-18">18 Jan 2016</time></span>
+		
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post">
+		<div class="inner">
+		
+			<section class="post-content">
+				<p>It's a fresh new day, and the bug has no time to lose. Today's topic: The principles of OOP. </p>
+
+<p>When you ask someone what OOP is they might say:  </p>
+
+<blockquote>
+  <p>OOP models real world objects in programming. That's why it was invented. So we could model the world.</p>
+</blockquote>
+
+<p>But when you think about it, it's not quite true, is it. Didn't procedural programming model real objects? Didn't it take us to the moon by controlling rockets, handling communications in 69'? </p>
+
+<p>The fact is that all programming paradigms model real objects and processes, not just OOP but functional and procedural programming as well. </p>
+
+<p>The value of OOP is not in the fact that it can model the world. All programming languages do that. </p>
+
+<p>After a few years of university someone might answer to the "What is OOP" question like this:</p>
+
+<blockquote>
+  <p>OOP is about:</p>
+  
+  <ol>
+  <li>Encapsulation</li>
+  <li>Inheritance</li>
+  <li>Polymorphism</li>
+  </ol>
+</blockquote>
+
+<p>But that's not quite true either, is it? <br />
+Procedural languages have perfect encapsulation. They expose no variables at all to us. Functional languages like Haskell make a point of never using variables. So if anything OOP, by exposing public variables weakened encapsulation.  </p>
+
+<blockquote>
+  <del>1. Encapsulation
+  </del>
+</blockquote>
+
+<p>Inheritance is another interesting topic. The GOf book says it best:  </p>
+
+<blockquote>
+  <p>Inheritance exposes a subclass to details of its parent's implementation, it's often said that 'inheritance breaks encapsulation' <a href="http://programmers.stackexchange.com/a/65185">link</a></p>
+</blockquote>
+
+<p>Inheritance can be evil and couple your software in a very unpleasant manner. Subclasses have strong dependencies on superclasses. I wouldn't count this among OOP's best features. You can very well write complex software with other forms of code reuse, not using inheritance at all. Functional programming languages prove this.  </p>
+
+<blockquote>
+  <del>2. Inheritance
+  </del>
+</blockquote>
+
+<p>Polymorphism. Now this is an interesting topic. In C there was no easy way to achieve polymorphic dispatch. You could not call the same method on multiple structures and expect each to behave in it's own way without some amount of switches, casts and pain. OO languages make it much easier to have polymorphic dispatch.</p>
+
+<blockquote>
+  <p><del>3. Pol</del>ymorphism</p>
+</blockquote>
+
+<p>Be careful how you define OOP. And that reminds me. <br />
+OOP could be going away. It may very well be so. Functional programming is on the rise. We switched to OOP languages by transitioning from C to C++/Java/C# in the 90's. One of these days we may wake up and notice that our much loved OOP languages are at the bottom of <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">tiobe index</a> and we will all be like Crusty. Crusty never got the point of OOP, he liked doing everything in C without all that object overhead because he felt it was slow. Don't be the Crusty of OOP era. Continue learning and revisit your opinions every now and then</p>
+			</section>
+			
+			<section class="post-info">
+				
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=The lies we say about OOP&url=http://thebugcode.github.io/the-3-promises-of-oop/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://thebugcode.github.io/the-3-promises-of-oop/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://thebugcode.github.io/the-3-promises-of-oop/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+				
+				<aside class="post-tags">
+					
+				</aside>
+				
+				<div class="clear"></div>
+				
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="../content/images/2015/10/avatar-1.jpg" alt="The Code Bug" />
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/the-code-bug/index.html">The Code Bug</a></h4>
+							<p class="post-author-about">A passionate iOS developer. Looking to radically improve the way we all develop software.</p>
+							<span class="post-author-location"><i class="ic ic-location"></i> Amsterdam</span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+			
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+
+			</section>
+
+			<aside class="post-nav">
+					<a class="post-nav-prev" href="../weakself-self-in-swift/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">WeakSelf done right in Swift</h2>
+							<p class="post-nav-excerpt">Hi CodeBugs, A long time ago we discovered that objective C blocks&hellip;</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template"></div>
+	
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=debd11cd2e"></script>
+
+	
+
+</body>
+</html>
