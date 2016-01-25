@@ -28,7 +28,7 @@
     <meta property="og:description" content="Hi from the codebug, A long time ago the entire iOS community was presented with VIPER. It was a revelatory new architecture which split up nicely the responsibilities into business rules, data formatting, data presentation, data acquisition and made our..." />
     <meta property="og:url" content="http://thebugcode.github.io/how-to-have-a-clean-appdelegate-a-simple-and-elegant-architecture/" />
     <meta property="article:published_time" content="2016-01-25T15:58:46.980Z" />
-    <meta property="article:modified_time" content="2016-01-25T16:34:18.600Z" />
+    <meta property="article:modified_time" content="2016-01-25T16:43:13.229Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="How to have a clean AppDelegate. A simple and elegant architecture" />
@@ -51,7 +51,7 @@
     "headline": "How to have a clean AppDelegate. A simple and elegant architecture",
     "url": "http://thebugcode.github.io/how-to-have-a-clean-appdelegate-a-simple-and-elegant-architecture/",
     "datePublished": "2016-01-25T15:58:46.980Z",
-    "dateModified": "2016-01-25T16:34:18.600Z",
+    "dateModified": "2016-01-25T16:43:13.229Z",
     "description": "Hi from the codebug, A long time ago the entire iOS community was presented with VIPER. It was a revelatory new architecture which split up nicely the responsibilities into business rules, data formatting, data presentation, data acquisition and made our..."
 }
     </script>
@@ -216,13 +216,22 @@ var social_link = {
 
 <p>A long time ago the entire iOS community was presented with <a href="https://www.objc.io/issues/13-architecture/viper/">VIPER</a>. It was a revelatory new architecture which split up nicely the responsibilities into business rules, data formatting, data presentation, data acquisition and made our iOS apps entirely testable. VIPER in its turn is an interpretation of Uncle Bob's clean architecture presented in <a href="https://cleancoders.com/episode/clean-code-episode-7/show">episode 7</a> . Episodes 2-6 strongly recommended for fully understanding VIPER.</p>
 
-<p>But VIPER doesn't and cannot solve the problem of large AppDelegate files. How could it? The App delegate has tens of different responsibilities by default. Consider them. Setting up: crash reporting, analytics, feedback gathering, setting up a coredata stack, handling remote notifications, handling url schemes.  If you put them all in the same class you have the recipe for disaster. This breaks the Single Responsibility principle, because the AppDelegate now handles too many things, changes for more than one reason, developers can't parallelise work because they all work on the same file, and things which generally should not be together are now gobbled together in one giant file called AppDelegate. Splitting things up to smaller methods is not a good idea here as this class still keeps a lot of responsibilities. </p>
+<p>But VIPER doesn't and cannot solve the problem of large AppDelegate classes. How could it? The App delegate has tens of different responsibilities by default. Consider them. Setting up: crash reporting, analytics, feedback gathering, setting up a coredata stack, handling remote notifications, handling url schemes.  If you keep all of them in the AppDelegate you get will suffer because:</p>
 
-<p>Instead consider this simple and elegant solution called App Services. The AppDelegate keeps pointers to different service objects in an array called services:</p>
+<ul>
+<li>You break the Single Responsibility principle, because the AppDelegate now handles too many things, changes for more than one reason</li>
+<li>Developers can't parallelise work because they all work on the same class</li>
+<li>Things which generally should not be together are now gobbled together in one giant class called AppDelegate.</li>
+</ul>
+
+<p>Splitting things up to smaller methods is not a good idea here as this class still keeps a lot of responsibilities spread across smaller methods. We can solve the problem by using the same idea behind the <a href="https://en.wikipedia.org/wiki/Strategy_pattern#Strategy_and_open.2Fclosed_principle">Strategy Pattern</a></p>
+
+<p>I call this solution App Services. Here is how it works: <br />
+The AppDelegate keeps pointers to different service objects in an array called services:</p>
 
 <p><img src="../content/images/2016/01/Screen-Shot-2016-01-25-at-16-24-17.png" alt="" /></p>
 
-<p>The idea is simple: The AppDelegate gets only one responsibility: informing all of its services what just happened: the app started, the app entered background. </p>
+<p>The idea is simple: The AppDelegate gets only one responsibility: informing all of its services what just happened: the app started, the app entered background, e.t.c.</p>
 
 <p>We iterate through all services and inform them what just happened so they can perform specific work. This way your AppDelegate will have only one reason to change: Adding or removing services. Here is how the AppDelegate looks like:  </p>
 
@@ -266,7 +275,7 @@ var social_link = {
 }
 </code></pre>
 
-<p>We give each individual feature its own service leaving us with a clean AppDelegate. It's a good idea to keep the services in one folder or group them somehow, so when thinking about what happens when your app launches you can quickly see what each service is doing: <br />
+<p>We give each individual feature its own service leaving us with a clean AppDelegate. It's a good idea to keep the services in one folder or group them somehow, so when thinking about what happens when your app launches you can quickly see everything in one place: <br />
 <img src="../content/images/2016/01/Screen-Shot-2016-01-25-at-17-28-43.png" alt="" /></p>
 
 <p>The high level philosophy is this: The AppDelegate shouldn't be concerned with anything except handling high level services. If you use this architecture and after a while you find yourself adding patches in the AppDelegate then the architecture failed you and this abstraction leaks. If you want to add a new responsibility to the AppDelegate, just create a new service.  </p>
