@@ -28,7 +28,7 @@
     <meta property="og:description" content="Hi CodeBugs, A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this: id __weak weakSelf = self   [self doSomethingWithCompletionBlock: ^{     [weakSelf updateUI]; }]; In..." />
     <meta property="og:url" content="http://thebugcode.github.io/weakself-self-in-swift/" />
     <meta property="article:published_time" content="2016-01-02T03:49:51.679Z" />
-    <meta property="article:modified_time" content="2016-01-17T23:57:41.681Z" />
+    <meta property="article:modified_time" content="2016-01-25T16:25:26.701Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="WeakSelf done right in Swift" />
@@ -51,7 +51,7 @@
     "headline": "WeakSelf done right in Swift",
     "url": "http://thebugcode.github.io/weakself-self-in-swift/",
     "datePublished": "2016-01-02T03:49:51.679Z",
-    "dateModified": "2016-01-17T23:57:41.681Z",
+    "dateModified": "2016-01-25T16:25:26.701Z",
     "description": "Hi CodeBugs, A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this: id __weak weakSelf = self   [self doSomethingWithCompletionBlock: ^{     [weakSelf updateUI]; }]; In..."
 }
     </script>
@@ -216,7 +216,7 @@ var social_link = {
 
 <p>A long time ago we discovered that objective C blocks capture strong pointers to any object referenced inside their body. In order to avoid retain cycles we did this:</p>
 
-<pre><code class="language-objc">id __weak weakSelf = self  
+<pre><code class="language-swift">id __weak weakSelf = self  
 [self doSomethingWithCompletionBlock: ^{
     [weakSelf updateUI];
 }];
@@ -224,7 +224,7 @@ var social_link = {
 
 <p>In Swift we can(and should) use <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID57">capture lists</a> to achieve the same behaviour:  </p>
 
-<pre><code class="language-Swift">self.doSomethingWithCompletionBlock {[weak self, weak delegate = self.delegate!] in  
+<pre><code class="language-swift">self.doSomethingWithCompletionBlock {[weak self, weak delegate = self.delegate!] in  
     self.updateUI()
     delegate.doSomething()
 }
@@ -238,7 +238,7 @@ var social_link = {
 
 <p>Capture lists are the better, native solution to the problem, so code like the following has no reason to exist:  </p>
 
-<pre><code class="language-Swift">weak var weakSelf = self  
+<pre><code class="language-swift">weak var weakSelf = self  
 self.doSomethingWithCompletionBlock {  
     weakSelf.updateUI()
 }
