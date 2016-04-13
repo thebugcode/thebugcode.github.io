@@ -28,7 +28,7 @@
     <meta property="og:description" content="After transitioning to Swift and Protocol Orietented Programming you might find yourself in a situation where your ViewControllers adopt a lot of protocols  class MYViewController: UIViewController, AppearanceProvider, ZoomingBehaviour, ThirdProtocol, UINavigationDelegate { } The more protocols you add the uglier this chain of..." />
     <meta property="og:url" content="http://thebugcode.github.io/how-to-adopt-protocols-in-a-clean-way/" />
     <meta property="article:published_time" content="2016-04-13T13:54:29.345Z" />
-    <meta property="article:modified_time" content="2016-04-13T13:55:11.591Z" />
+    <meta property="article:modified_time" content="2016-04-13T13:58:18.352Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Swift: Adopt Protocols without cluttering the class declaration" />
@@ -51,7 +51,7 @@
     "headline": "Swift: Adopt Protocols without cluttering the class declaration",
     "url": "http://thebugcode.github.io/how-to-adopt-protocols-in-a-clean-way/",
     "datePublished": "2016-04-13T13:54:29.345Z",
-    "dateModified": "2016-04-13T13:55:11.591Z",
+    "dateModified": "2016-04-13T13:58:18.352Z",
     "description": "After transitioning to Swift and Protocol Orietented Programming you might find yourself in a situation where your ViewControllers adopt a lot of protocols  class MYViewController: UIViewController, AppearanceProvider, ZoomingBehaviour, ThirdProtocol, UINavigationDelegate { } The more protocols you add the uglier this chain of..."
 }
     </script>
@@ -219,7 +219,7 @@ var social_link = {
 }
 </code></pre>
 
-<p>The more protocols you add the uglier this chain of comma separated protocols gets. The cheap solution (comes from <a href="https://twitter.com/AndreiVidrasco">a good friend of ours</a> is to create an extension for each protocol you want to adopt(<del>implement</del>)and to keep the code related to that protocol in the same extension. This provides a nice Interface Segregation and separation of responsibilities. </p>
+<p>The more protocols you add the uglier this chain of comma separated protocols gets. The cheap solution (comes from <a href="https://twitter.com/AndreiVidrasco">a good friend of ours</a>) is to create an extension for each protocol you want to adopt(<del>implement</del>)and to keep the code related to that protocol in the same extension. This provides a nice Interface Segregation and separation of responsibilities. </p>
 
 <pre><code class="language-swift">class MYViewController: UIViewController {  
 }
