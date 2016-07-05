@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>A new Home Website</title>
+    <title>How to update a single dependency using Carthage</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -19,21 +19,21 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/prism.css?v=a459f50334" />
     <link rel="stylesheet" type="text/css" href="../assets/css/rrssb.css?v=a459f50334" />
 
-    <link rel="canonical" href="http://thebugcode.github.io/a-new-home-website/" />
+    <link rel="canonical" href="http://thebugcode.github.io/how-to-update-a-single-dependency-using-carthage/" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="The Code Bug" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="A new Home Website" />
-    <meta property="og:description" content="Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one..." />
-    <meta property="og:url" content="http://thebugcode.github.io/a-new-home-website/" />
-    <meta property="article:published_time" content="2015-10-08T12:31:54.356Z" />
-    <meta property="article:modified_time" content="2015-10-09T18:30:06.221Z" />
+    <meta property="og:title" content="How to update a single dependency using Carthage" />
+    <meta property="og:description" content="Welcome, For those of us who are using Carthage updating dependencies can be a very long wait while waiting for compilation (I&#x27;m looking at you aws-sdk-ios).   Running carthage update updates all dependencies, leaving me to wait somewhere between 5 and..." />
+    <meta property="og:url" content="http://thebugcode.github.io/how-to-update-a-single-dependency-using-carthage/" />
+    <meta property="article:published_time" content="2016-07-05T11:37:42.128Z" />
+    <meta property="article:modified_time" content="2016-07-05T11:37:44.874Z" />
     
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="A new Home Website" />
-    <meta name="twitter:description" content="Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one..." />
-    <meta name="twitter:url" content="http://thebugcode.github.io/a-new-home-website/" />
+    <meta name="twitter:title" content="How to update a single dependency using Carthage" />
+    <meta name="twitter:description" content="Welcome, For those of us who are using Carthage updating dependencies can be a very long wait while waiting for compilation (I&#x27;m looking at you aws-sdk-ios).   Running carthage update updates all dependencies, leaving me to wait somewhere between 5 and..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/how-to-update-a-single-dependency-using-carthage/" />
     
     <script type="application/ld+json">
 {
@@ -48,11 +48,11 @@
         "sameAs": null,
         "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
     },
-    "headline": "A new Home Website",
-    "url": "http://thebugcode.github.io/a-new-home-website/",
-    "datePublished": "2015-10-08T12:31:54.356Z",
-    "dateModified": "2015-10-09T18:30:06.221Z",
-    "description": "Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one..."
+    "headline": "How to update a single dependency using Carthage",
+    "url": "http://thebugcode.github.io/how-to-update-a-single-dependency-using-carthage/",
+    "datePublished": "2016-07-05T11:37:42.128Z",
+    "dateModified": "2016-07-05T11:37:44.874Z",
+    "description": "Welcome, For those of us who are using Carthage updating dependencies can be a very long wait while waiting for compilation (I&#x27;m looking at you aws-sdk-ios).   Running carthage update updates all dependencies, leaving me to wait somewhere between 5 and..."
 }
     </script>
 
@@ -96,9 +96,9 @@ var social_link = {
     <article class="post">
 
         <header class="post-header">
-            <h1 class="post-title">A new Home Website</h1>
+            <h1 class="post-title">How to update a single dependency using Carthage</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2015-10-08">08 October 2015</time> 
+                <time class="post-date" datetime="2016-07-05">05 July 2016</time> 
             </section>
             <section class="social-share">
                 <ul class="rrssb-buttons clearfix">
@@ -212,42 +212,17 @@ var social_link = {
         </header>
 
         <section class="post-content">
-            <p>Welcome friends of the bug. We have a new, fast and free website in that order. The Code Bug was about to spend a fortune on a fast WordPress website when he realised you can get an even faster one for free. <br />
-We're hosted on GitHub and the site is small so it loads super fast. The code bug likes ultra-fast sites. He thinks your time is important.</p>
+            <p>Welcome,</p>
 
-<h4 id="sowhatcanthecodebugsnewsitedo">So what can the code Bug's new site do?</h4>
+<p>For those of us who are using Carthage updating dependencies can be a very long wait while waiting for compilation (I'm looking at you <code>aws-sdk-ios</code>).  </p>
 
-<p>As you are scrolling notice a orange bar at the top of the screen. Me likey.  </p>
+<p>Running <code>carthage update</code> updates all dependencies, leaving me to wait somewhere between 5 and 10 minutes.</p>
 
-<h4 id="itloadsfast">It loads fast:</h4>
+<p>Fortunately this is also valid : <br />
+<code>carthage update HockeySDK-iOS --platform iOS</code></p>
 
-<pre><code class="language-bash">time curl -s 'http://thebugcode.github.io' &gt; ~/Desktop/file.txt  
-Time    0.648s  
-</code></pre>
-
-<p>Those are Tesla acceleration numbers right there.</p>
-
-<h4 id="whatelsecanitdo">What else can it do?</h4>
-
-<p>Blockquotes.  </p>
-
-<blockquote>
-  <p>It can pretend the Code Bug is quoting people he never actually read.</p>
-</blockquote>
-
-<h4 id="codesnipets">Code snipets</h4>
-
-<p>Syntax highlighting Swift code as if it were javascript. But hey, it works</p>
-
-<pre><code class="language-javascript">class SwiftClass {  
-    func foo() {
-    }
-}
-</code></pre>
-
-<div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-video" data-allowfullscreen="1" data-href="/JurnalDeObservator/videos/vb.417414651629353/900930309944449/?type=3"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/JurnalDeObservator/videos/900930309944449/"><a href="https://www.facebook.com/JurnalDeObservator/videos/900930309944449/">Amsterdamul și bicicletele :)</a><p>Amsterdamul e singurul oraș din lume în care numărul bicicletelor este mai mare ca cel al locuitorilor. Haideți să vă povestesc mai multe despre bicicletele din Amsterdam :)</p>Posted by <a href="https://www.facebook.com/JurnalDeObservator">Jurnal de observator</a> on Thursday, October 8, 2015</blockquote></div></div>
-
-<p>At the end of the page we have disqus comments. Feel free to never use them and when you do, insult as many people as you can</p>
+<p>And it will update only the specified dependency. By that you would specify this dependency like this in your Cartfile: <br />
+<code>github "bitstadium/HockeySDK-iOS"</code></p>
         </section>
 
         <section class="social-share">
@@ -404,10 +379,10 @@ Time    0.648s
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story no-cover" href="../pimp-your-ios-app-icons/index.html">
+    <a class="read-next-story prev no-cover" href="../how-to-adopt-protocols-in-a-clean-way/index.html">
         <section class="post">
-            <h2>Tag your iOS App Icons</h2>
-            <p>I ran into this issue a few days ago:     How do I make it clear for my testers that&hellip;</p>
+            <h2>Swift: Adopt Protocols without cluttering the class declaration</h2>
+            <p>After transitioning to Swift and Protocol Orietented Programming you might find yourself in a situation where your ViewControllers adopt&hellip;</p>
         </section>
     </a>
 </aside>
@@ -435,11 +410,11 @@ Time    0.648s
 
             $('.rrssb-buttons').rrssb({
                 // required:
-                title: 'A new Home Website',
-                url: 'http://thebugcode.github.io/a-new-home-website/',
+                title: 'How to update a single dependency using Carthage',
+                url: 'http://thebugcode.github.io/how-to-update-a-single-dependency-using-carthage/',
 
                 // optional:
-                 description: 'A new Home Website',
+                 description: 'How to update a single dependency using Carthage',
                 // emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
             });
 
