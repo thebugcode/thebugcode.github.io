@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>UIStoryboardSegues are bad</title>
-    <meta name="description" content="This article compares UIStoryboardSegue with pushViewController and discusses why Segues are bad for software and why we shouldnt use them." />
+    <title>Airbnb iOS app, a critical review and verdict</title>
+    <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,21 +19,21 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/prism.css?v=c5e521a1da" />
     <link rel="stylesheet" type="text/css" href="../assets/css/rrssb.css?v=c5e521a1da" />
 
-    <link rel="canonical" href="http://thebugcode.github.io/uistoryboardsegue-is-dead-the-experiment-is-over/" />
+    <link rel="canonical" href="http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="The Code Bug" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="UIStoryboardSegues are bad" />
-    <meta property="og:description" content="This article compares UIStoryboardSegue with pushViewController and discusses why Segues are bad for software and why we shouldnt use them." />
-    <meta property="og:url" content="http://thebugcode.github.io/uistoryboardsegue-is-dead-the-experiment-is-over/" />
-    <meta property="article:published_time" content="2016-01-18T01:16:01.653Z" />
-    <meta property="article:modified_time" content="2016-01-25T16:25:10.471Z" />
+    <meta property="og:title" content="Airbnb iOS app, a critical review and verdict" />
+    <meta property="og:description" content="Hi everyone, In today&#x27;s post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I..." />
+    <meta property="og:url" content="http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/" />
+    <meta property="article:published_time" content="2016-10-27T23:09:14.428Z" />
+    <meta property="article:modified_time" content="2016-10-27T23:17:40.787Z" />
     
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="UIStoryboardSegues are bad" />
-    <meta name="twitter:description" content="This article compares UIStoryboardSegue with pushViewController and discusses why Segues are bad for software and why we shouldnt use them." />
-    <meta name="twitter:url" content="http://thebugcode.github.io/uistoryboardsegue-is-dead-the-experiment-is-over/" />
+    <meta name="twitter:title" content="Airbnb iOS app, a critical review and verdict" />
+    <meta name="twitter:description" content="Hi everyone, In today&#x27;s post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/" />
     
     <script type="application/ld+json">
 {
@@ -48,11 +48,11 @@
         "sameAs": null,
         "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
     },
-    "headline": "UIStoryboardSegues are bad",
-    "url": "http://thebugcode.github.io/uistoryboardsegue-is-dead-the-experiment-is-over/",
-    "datePublished": "2016-01-18T01:16:01.653Z",
-    "dateModified": "2016-01-25T16:25:10.471Z",
-    "description": "This article compares UIStoryboardSegue with pushViewController and discusses why Segues are bad for software and why we shouldnt use them."
+    "headline": "Airbnb iOS app, a critical review and verdict",
+    "url": "http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/",
+    "datePublished": "2016-10-27T23:09:14.428Z",
+    "dateModified": "2016-10-27T23:17:40.787Z",
+    "description": "Hi everyone, In today&#x27;s post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I..."
 }
     </script>
 
@@ -96,9 +96,9 @@ var social_link = {
     <article class="post">
 
         <header class="post-header">
-            <h1 class="post-title">UIStoryboardSegue considered harmful</h1>
+            <h1 class="post-title">Airbnb iOS app, a critical review and verdict</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2016-01-18">18 January 2016</time> 
+                <time class="post-date" datetime="2016-10-28">28 October 2016</time> 
             </section>
             <section class="social-share">
                 <ul class="rrssb-buttons clearfix">
@@ -212,70 +212,84 @@ var social_link = {
         </header>
 
         <section class="post-content">
-            <p>Hi from the codebug, <br />
-Today we will talk about UIStoryboardSegue but first a quick history lesson.Apple introduced UIStoryboardSegue in iOS 5. It was a great new glorious idea: that you can model navigation in your application visually. <br />
-Here is how it worked: <br />
-You have two screens.You press a button and it takes you to a new Welcome screen. All you need to do to achieve this behaviour was to draw an arrow. The arrow from one to another represents the segue. Neat, huh? <br />
-<img src="../content/images/2016/01/Screen-Shot-2016-01-18-at-01-51-11.png" alt="" /></p>
+            <p>Hi everyone,</p>
 
-<p>Eventually you could have an entire app in a storyboard. All in front of your eyes. What a great and marvellous idea!! <br />
-<img src="../content/images/2016/01/storyboard-example.png" alt="" /></p>
+<p>In today's post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I think I can try and provide reasonable feedback.</p>
 
-<p>And here is where things were derailed.First we though that having all your UI in a single storyboard is a good idea. And then we understood that:</p>
+<p>I am in love with Airbnb, and together with my wife use this service daily to communicate with our guests. I have been complaining about the iOS app everyday for the last two years, went to Airbnb open, complained there but still no change. After a few months of pain I have finally found the time to write about it. The experience is the same for guests as it is for hosts (arguably the host app experience is even worse).</p>
 
-<ul>
-<li>It makes it impossible for two people to work on the UI because of infamous storyboard conflicts. </li>
-<li>The storyboards becomes hard to load and navigate. </li>
-<li>We break the single responsibility principle because the storyboard knows about the entire UI of the app, instead of having it partitioned per feature and allowing developers to work on different parts of the app at the same time.</li>
-<li>In teams of many developers only one person can touch the UI, others have to wait or synchronise carefully.</li>
-</ul>
+<p>Let's dive in. App version 16.42.1 (latest) iOS version 10.1 (latest). We start by communicating with our guest/host. Notice the 3 horizontal lines between messages. Why are they there?</p>
 
-<p>Apple acknowledged the issue and allowed us to break one storyboard into <a href="https://developer.apple.com/library/ios/recipes/xcode_help-IB_storyboard/Chapters/AddSBReference.html">smaller ones</a>. But still, imagine you have 10 iOS developers, all working on a few View Controller in a storyboard. Are you brave enough to try that? I wouldn't be. Because there is no separation. Everything is coupled to everything. There is no modularity. You cannot work independently. Instead what I end up doing is creating one storyboard per feature, or worse, per View Controller.</p>
+<p><img src="../content/images/2016/10/IMG_1983.PNG" alt="" /></p>
 
-<p>Now to the real problem with Segues. In a complex app you often want to present a screen, when it is needed. Like showing the Login screen when the user is not logged in. Under normal circumstances this should be no harder than:  </p>
+<p>We don't know. Let's try and scroll a little bit and see if they disappear:</p>
 
-<pre><code class="language-swift">let loginScreen = LoginViewController()  
-// Do additional setup on the loginScreen
-self.showViewControlller(loginScreen, animated:true)  
-</code></pre>
+<p><img src="../content/images/2016/10/IMG_1986.PNG" alt="" /></p>
 
-<p>Makes sense, right? You create the screen and you show it. Simple, honest, clean.</p>
+<p>It's magical. They are gone. Well this is just careless programming. You should remove separators between cells if needed. Let's continue to another guest, this time let's open his profile. Let's try and scroll a little bit. A white <a href="https://developer.apple.com/ios/human-interface-guidelines/ui-bars/status-bars/">UIStatusBar</a> does't really make sense if the background is white. I drew what's missing for the Airbnb folks. </p>
 
-<p>But with segues things are much more cumbersome. Here it is: <br />
-1. First you have to modify the storyboard and draw a new UIStoryboardSegue. Make sure no one is working on that storyboard. Also it may very well be that the two screens are not even in the same storyboard. <br />
-2.  Then you assign a <code>magical identifier</code> to that segue in the storyboard. <br />
-3. Implement perform segue, do some setup in prepareForSegue by checking the same magical string and do a little unwrapping because OF COURSE there are no compiler checks and no type safety:  </p>
+<p><img src="../content/images/2016/10/IMG_1952-1.PNG" alt="" /></p>
 
-<pre><code class="language-swift">override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {  
-            if (segue.identifier == "ShowDeal") {
+<p>Now let's go into a reservation and tap View on Calendar. It's loading something. The loading indicator itself is not very helpful as it tends to load for very long times. <br />
+<img src="../content/images/2016/10/IMG_1953.PNG" alt="" /></p>
 
-                if let viewController: DealLandingViewController = segue.destinationViewController as? DealLandingViewController {
-                   //setup code here
-                }
-            }
-     }
-</code></pre>
+<p>But after it finishes it wants to load some more:</p>
 
-<p>4.Call perform segue.</p>
+<p><img src="../content/images/2016/10/IMG_1954.PNG" alt="" /></p>
 
-<p>Let's compare the technical implementations. </p>
+<p>Advice: Once you show a loading indicator , load everything you need. Our guest is waiting at the door though, lets talk to him. White spaces, and insets for the scroll indicator. White spaces everywhere.</p>
 
-<ol>
-<li><p>The first one is simple, compiler checked, easy to understand, scalable for any team size, doesn't require additional setup to show new screens. </p></li>
-<li><p>The segue approach is a massive pain in the ass, not safe, not checked by the compiler, magic strings, requiring segue drawing in a storyboard, potentially conflicting with other people's changes in that storyboard. Why would you even want to use it? Why did Apple even create it?</p></li>
-</ol>
+<p><img src="../content/images/2016/10/IMG_1964.PNG" alt="" /></p>
 
-<p>Apple is following the philosophy that creating UI's should be easy, that you should see the entire app in front of you. However the downsides to this are enormous in terms of modularity and good code, and they are not worth it. </p>
+<p>Next, lets go back to our calendar and try to refresh it, by performing the popular pull-down-to-refresh action. We expect the circular arrows to spin until they finish refreshing. But no. <br />
+<img src="../content/images/2016/10/IMG_1960-1.PNG" alt="" />
+After releasing instead of the arrows spinning in a circle until they refresh we go to the same empty, slow and uninformative loading screen. Boom! <br />
+<img src="../content/images/2016/10/IMG_1961.PNG" alt="" /></p>
 
-<p>I never use UIStoryboardSegues, but I do use storyboards. They have cool features, static UITableView cells being one of them, among many others. My code is much better and safer because I don't use Segues. I can show any View Controller at any time in 2 lines of code, and I get Swift's awesome compiler to assist me. Everything you can do with segues, can be done without them. Easier and better.</p>
+<p>Well, lets scroll a little bit in the calendar tab. UIStatusBar discipline is completely ignored by Airbnb. Anything goes: <br />
+<img src="../content/images/2016/10/IMG_1965.PNG" alt="" /></p>
 
-<p>But codebug,why do people still use UIStoryboardSegues?</p>
+<p>As well as the notion of text fitting screens (even if the screen is the latest one Apple launched) and the app is in English. Just imagine how bad it must be in other languages, where developers tend to not test that much: <br />
+<img src="../content/images/2016/10/IMG_1966.PNG" alt="" /></p>
 
-<p>Some people think everything Apple makes is great and should be used. This is not the case. Consider Airdrop. UIStoryboards segues are not good. They are proven to be bad. </p>
+<p>I hear you! You're saying, maybe the iOS app for hosts sucks. But the part which is for guests must be great. Check this out. Currency formatting (there are so many nice apis for this) is wrong. Status Bar, dead wrong, Map and Filters buttons overflow the white content, not sure when the button ends and the backgrounds starts. <br />
+<img src="../content/images/2016/10/IMG_1967.PNG" alt="" /></p>
 
-<p>Who are Segues really for? The answer is Designers, Prototypers. They provide a great visual feedback of how your app may look like but are very cumbersome and unflexible for developers. If you are a developer, you know you shouldn't be using them. </p>
+<p>Lets check out our trips. No pictures. Huh. Waiting doesn't help. Oh right, scrolling might help.</p>
 
-<p>PS: Id love to hear your experiences with segues.</p>
+<p><img src="../content/images/2016/10/IMG_1969.PNG" alt="" /></p>
+
+<p>Woooaah. It only loads images after opening a trip. Let there be light: <br />
+<img src="../content/images/2016/10/IMG_1970.PNG" alt="" /></p>
+
+<p>Ok, lets check our conversations. After getting through yet another loading screen we see this:</p>
+
+<p><img src="../content/images/2016/10/IMG_1971.PNG" alt="" /></p>
+
+<p>All right, maybe its wrong after you made a booking. But when you're just browsing it's great. Let's try to like something by tapping the heart icon:</p>
+
+<p><img src="../content/images/2016/10/IMG_1977.PNG" alt="" /></p>
+
+<p>We're not allowed to do that, we can't like (it's actually called Save to wish list). We have to insert some text here. But where is the Create button? <br />
+<img src="../content/images/2016/10/IMG_1981.PNG" alt="" /></p>
+
+<p>Bummer, it's hidden well under the keyboard. If you try to like something again, you will once more asked to insert some text. I expect to be able to <code>heart</code> things and thats it. Save it to my account somewhere, please.</p>
+
+<p>Now one could say, maybe Apple's <a href="https://developer.apple.com/ios/human-interface-guidelines/">Human Interface Guidelines</a> are completely ignored at Airbnb. But performance should not be. Why is it that every View that you try to load takes 2-3 seconds? Why is it that the app is so slow to start, messages are slow to load. When guests are waiting at the door we need real time response times. Why is it that the calendar is insanely slow to load (so you can actually check if your rooms are free?).</p>
+
+<p>There can only be two answers: <br />
+1. The iOS Developers working on the Airbnb iOS app are incompetent, unprofessional and ignore every best practice in the community (UI, UX, performance, modularity, scrolling smoothness, even release notes). <br />
+2. The technical team wants to but is not allowed or doesn't have the resources to make this app at least acceptable. </p>
+
+<p>And I saved the best for last. Here is how Airbnb's release notes look like on the AppStore. Oh the irony. They copy paste the same message saying stability tweaks. We saw the tweaks in action:</p>
+
+<p><img src="../content/images/2016/10/IMG_1987.PNG" alt="" /></p>
+
+<p>Don't trust a seasoned iOS Developer and regular user? Trust AppStore reviews:</p>
+
+<p><img src="../content/images/2016/10/Screen-Shot-2016-10-28-at-01-06-01.png" alt="" /></p>
+
+<p>PS: I would like to have a chat with the Airbnb engineers/founders/designers. I would love to help you get out of mess, i've done it before for other iOS apps. I am going to email this blog post to every boss, designer and developer at airbnb that I know of. About time to get this fixed.</p>
         </section>
 
         <section class="social-share">
@@ -432,16 +446,10 @@ self.showViewControlller(loginScreen, animated:true)
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story no-cover" href="../how-to-have-a-clean-appdelegate-a-simple-and-elegant-architecture/index.html">
+    <a class="read-next-story prev no-cover" href="../when-to-self-in-swift-and-when-not-to-2/index.html">
         <section class="post">
-            <h2>How to have a clean AppDelegate. A simple and elegant architecture</h2>
-            <p>Hi from the codebug, A long time ago the entire iOS community was presented with VIPER. It was a&hellip;</p>
-        </section>
-    </a>
-    <a class="read-next-story prev no-cover" href="../the-3-promises-of-oop/index.html">
-        <section class="post">
-            <h2>The lies we say about OOP</h2>
-            <p>It's a fresh new day, and the bug has no time to lose. Today's topic: The principles of OOP.&hellip;</p>
+            <h2>Clean code: when to use &quot;self.&quot; in Swift, and when not to</h2>
+            <p>Hi from the codebug, Swift is great programming language. We love that it's fast, safe and flexible. We also&hellip;</p>
         </section>
     </a>
 </aside>
@@ -469,11 +477,11 @@ self.showViewControlller(loginScreen, animated:true)
 
             $('.rrssb-buttons').rrssb({
                 // required:
-                title: 'UIStoryboardSegue considered harmful',
-                url: 'http://thebugcode.github.io/uistoryboardsegue-is-dead-the-experiment-is-over/',
+                title: 'Airbnb iOS app, a critical review and verdict',
+                url: 'http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/',
 
                 // optional:
-                 description: 'UIStoryboardSegue considered harmful',
+                 description: 'Airbnb iOS app, a critical review and verdict',
                 // emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
             });
 
