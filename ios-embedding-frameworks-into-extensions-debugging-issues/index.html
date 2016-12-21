@@ -28,7 +28,7 @@
     <meta property="og:description" content="Since iOS 8, apple allows developers to ship and make use of dynamic libraries. This allows us to easily share code between our different targets, and raises a tremendous challenge to package, distribute and embed those frameworks properly. This gets..." />
     <meta property="og:url" content="http://thebugcode.github.io/ios-embedding-frameworks-into-extensions-debugging-issues/" />
     <meta property="article:published_time" content="2016-12-21T22:23:49.960Z" />
-    <meta property="article:modified_time" content="2016-12-21T23:09:44.615Z" />
+    <meta property="article:modified_time" content="2016-12-21T23:17:25.015Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="iOS: Embedding frameworks into extensions, debugging issues" />
@@ -51,7 +51,7 @@
     "headline": "iOS: Embedding frameworks into extensions, debugging issues",
     "url": "http://thebugcode.github.io/ios-embedding-frameworks-into-extensions-debugging-issues/",
     "datePublished": "2016-12-21T22:23:49.960Z",
-    "dateModified": "2016-12-21T23:09:44.615Z",
+    "dateModified": "2016-12-21T23:17:25.015Z",
     "description": "Since iOS 8, apple allows developers to ship and make use of dynamic libraries. This allows us to easily share code between our different targets, and raises a tremendous challenge to package, distribute and embed those frameworks properly. This gets..."
 }
     </script>
@@ -231,7 +231,7 @@ var social_link = {
 
 <p>In short it says, run <code>otool</code> on each executable to check what it links against and make sure the frameworks are properly embedded. Why the big fuss. </p>
 
-<p>But how should <code>properly embedded</code> frameworks look like and how should you interpret the results of <code>otool</code> ? To do this we're going to use the poster child project from Apple called Lister.  Lister is an iOS app with a Watch App and Watch app extension.</p>
+<p>But how should <code>properly embedded</code> frameworks look like and how should you interpret the results of <code>otool</code> ? To do this we're going to use the poster child project from Apple called Lister (Download it <a href="https://github.com/thebugcode/EmbedExtensionFrameworks">here</a>).  Lister is an iOS app with a Watch App and Watch app extension.</p>
 
 <p>First we must build our app (And so we do). Then , we go to <code>Products-&gt; Show in finder</code> and press <code>Show Package Contents on the app</code> <br />
 <img src="../content/images/2016/12/Screen-Shot-2016-12-21-at-10-54-41-PM.png" alt="" /></p>
