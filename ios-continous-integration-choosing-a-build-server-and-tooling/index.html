@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>iOS app testers, the game changer is here</title>
+    <title>iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -19,21 +19,21 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/prism.css?v=7f88107ea9" />
     <link rel="stylesheet" type="text/css" href="../assets/css/rrssb.css?v=7f88107ea9" />
 
-    <link rel="canonical" href="http://thebugcode.github.io/ios-app-testing-the-game-changer/" />
+    <link rel="canonical" href="http://thebugcode.github.io/ios-continous-integration-choosing-a-build-server-and-tooling/" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="The Code Bug" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="iOS app testers, the game changer is here" />
-    <meta property="og:description" content="Hi there bugs,  Recently Apple introduced this new technology called Xcode UI Tests. (Documentation in the link. Just kidding, there&#x27;s no documentation) Why does the code bug care. Well, if up until now you tested your iOS apps manually like..." />
-    <meta property="og:url" content="http://thebugcode.github.io/ios-app-testing-the-game-changer/" />
-    <meta property="article:published_time" content="2015-11-09T23:40:30.878Z" />
-    <meta property="article:modified_time" content="2015-11-10T00:17:00.153Z" />
+    <meta property="og:title" content="iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane" />
+    <meta property="og:description" content="Twice in the last year my team was looking at the tremendous task of choosing and sticking with a continuous integration(from now on CI) server to meet our needs.  With some of my previous CI experience and wishes expressed..." />
+    <meta property="og:url" content="http://thebugcode.github.io/ios-continous-integration-choosing-a-build-server-and-tooling/" />
+    <meta property="article:published_time" content="2017-03-05T01:18:51.639Z" />
+    <meta property="article:modified_time" content="2017-03-05T02:45:11.137Z" />
     
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="iOS app testers, the game changer is here" />
-    <meta name="twitter:description" content="Hi there bugs,  Recently Apple introduced this new technology called Xcode UI Tests. (Documentation in the link. Just kidding, there&#x27;s no documentation) Why does the code bug care. Well, if up until now you tested your iOS apps manually like..." />
-    <meta name="twitter:url" content="http://thebugcode.github.io/ios-app-testing-the-game-changer/" />
+    <meta name="twitter:title" content="iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane" />
+    <meta name="twitter:description" content="Twice in the last year my team was looking at the tremendous task of choosing and sticking with a continuous integration(from now on CI) server to meet our needs.  With some of my previous CI experience and wishes expressed..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/ios-continous-integration-choosing-a-build-server-and-tooling/" />
     
     <script type="application/ld+json">
 {
@@ -48,11 +48,11 @@
         "sameAs": null,
         "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
     },
-    "headline": "iOS app testers, the game changer is here",
-    "url": "http://thebugcode.github.io/ios-app-testing-the-game-changer/",
-    "datePublished": "2015-11-09T23:40:30.878Z",
-    "dateModified": "2015-11-10T00:17:00.153Z",
-    "description": "Hi there bugs,  Recently Apple introduced this new technology called Xcode UI Tests. (Documentation in the link. Just kidding, there&#x27;s no documentation) Why does the code bug care. Well, if up until now you tested your iOS apps manually like..."
+    "headline": "iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane",
+    "url": "http://thebugcode.github.io/ios-continous-integration-choosing-a-build-server-and-tooling/",
+    "datePublished": "2017-03-05T01:18:51.639Z",
+    "dateModified": "2017-03-05T02:45:11.137Z",
+    "description": "Twice in the last year my team was looking at the tremendous task of choosing and sticking with a continuous integration(from now on CI) server to meet our needs.  With some of my previous CI experience and wishes expressed..."
 }
     </script>
 
@@ -96,9 +96,9 @@ var social_link = {
     <article class="post">
 
         <header class="post-header">
-            <h1 class="post-title">iOS app testers, the game changer is here</h1>
+            <h1 class="post-title">iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2015-11-10">10 November 2015</time> 
+                <time class="post-date" datetime="2017-03-05">05 March 2017</time> 
             </section>
             <section class="social-share">
                 <ul class="rrssb-buttons clearfix">
@@ -212,46 +212,156 @@ var social_link = {
         </header>
 
         <section class="post-content">
-            <p>Hi there bugs, <br />
-Recently Apple introduced this new technology called <a href="https://forums.developer.apple.com/thread/7230">Xcode UI Tests</a>. (Documentation in the link. Just kidding, there's no documentation)</p>
+            <p>Twice in the last year my team was looking at the tremendous task of choosing and sticking with a continuous integration(from now on CI) server to meet our needs. </p>
 
-<p>Why does the code bug care. Well, if up until now you tested your iOS apps manually like this: <br />
-<img src="../content/images/2015/11/testingIpad-1.jpg" alt="ManualTesting" />
-The code bug knows how boring this can be. <br />
-What you can now do is press Command + U and let the tests run themselves like this:</p>
+<p>With some of my previous CI experience and wishes expressed by our iOS developers, here is what we needed such a server to do for us:</p>
 
-<iframe width="400" height="315" src="https://www.youtube.com/embed/bL673VeMr00" frameborder="0" allowfullscreen></iframe>
+<ul>
+<li>Build and sign all flavors of our app.</li>
+<li>Upload our app-store flavor to iTunes Connect</li>
+<li>Upload ipa's,dSYM's and changelogs to HockeyApp</li>
+<li>Run Unit and UI tests continuously on release and develop branches</li>
+<li>Build each Merge Request (MR) and report test results back. </li>
+<li>Continuously attempt building and signing to make sure we didn't introduce issues.</li>
+</ul>
 
-<p>But Code Bug, you yell, I saw in the video that we  have to write code. You know we don't like to write code. <br />
-Well, here is how you create those tests. <strong>You record them :</strong>  </p>
+<p>As far as command line tooling goes there are a few contenders: <br />
+<code>xcodebuild</code> - developed by apple, used under the hood by Xcode to build and test. Difficult to remember sometimes but very configurable.</p>
 
-<iframe width="420" height="315" src="https://www.youtube.com/embed/-o4CN9WJMko" frameborder="0" allowfullscreen></iframe>  
+<p><code>fastlane</code> - in fact not a single tool but a few tools which allow building, testing, uploading to iTunes Connect, provisioning profile management, screenshot taking, dsym upload/download to major crash reporting platforms.</p>
 
-<p>You press the record button tap button and code is magically generated.</p>
+<p><code>xctool and others</code> - Among others I mean tools like the <a href="http://nomad-cli.com">nomad tools</a> which have been deprecated or have dwindling support, or become abandoned in time. Just because Facebook is behind a tool, it should bring no comfort that it is going to be maintained. </p>
 
-<p>After you have them all recorded, either press Command + U to run your UI tests or by typing this:  </p>
+<p>The test of time would later reveal the <em>winner</em> to us(Keep reading). </p>
 
-<pre><code class="language-bash">xcodebuild -scheme "SchemeName" \  
-           -sdk iphonesimulator \
-           -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0'
-test  
-</code></pre>
+<p>At the same time tooling is nothing without a server for it to run on continuously. There were a few CI servers being suggested and a choice had to be made in order to decide where to invest time. </p>
 
-<p>See <a href="https://krausefx.com/blog/run-xcode-7-ui-tests-from-the-command-line">Felix Krausse's</a> article to get more details on running your tests from the command line.</p>
+<p>The usual contenders are:</p>
 
-<p>If you want to test for something XCTAssert is your friend. You can have conditions like the existence of a button:</p>
+<ul>
+<li><code>TravisCI/CircleCI</code> - Hosted severs, free for open source projects, accessible from anywhere, robust. Less configurable than Jenkins, only allow integration with Github. Pricey for private repositories.</li>
+<li><code>Xcode Server</code> - Highly integrated with Xcode, in fact can only work with Xcode, developed by apple, hopefully would need very little tinkering.</li>
+<li><code>Jenkins</code> - The old king of CI servers, a lot of plugins, a lot of integrations, requires a lot of tinkering and maintenance.</li>
+</ul>
 
-<pre><code class="language-swift">XCTAssertTrue(app.buttons["Login"].exists)  
-</code></pre>
+<h4 id="therumble">The rumble:</h4>
 
-<p>Or check that a table has only one row  </p>
+<h4 id="1travisci"><code>1.TravisCI</code></h4>
 
-<pre><code class="language-swift">XCTAssertTrue(app.tables.cells.count == 1)  
-</code></pre>
+<p>A simple CI server, built around Github. <strong>Important</strong>: If your code is not on Github, you're out of luck. Many companies use alternatives to Github like Bitbucket or Gitlab due to pricing or the need to host their own code for security reasons. But say your code is on Github and you are willing to pay the monthly fee for Travis/Circle. Here is the Travis page of popular iOS library, <a href="https://travis-ci.org/AFNetworking/AFNetworking/branches">AFNetworking</a>. <br />
+Travis's UI is focused around making builds and Github Pull Requests. It provides out of the box simulators and Xcode images(you can specify which Xcode version you want to use for building). Travis CI is still in beta with running jobs periodically which is surprising as Jenkins had this for a very long time.</p>
 
-<p>To get more information on how to test and assert that certain things should happen <a href="https://developer.apple.com/videos/play/wwdc2015-406/">including demos go to Apple's website</a>.</p>
+<p><mark>Pros</mark>:</p>
 
-<p>Hopefully this will save you massive amounts of time. If you don't know Swift, don't worry, your developer most likely does. Automating your UI Tests will increase your productivity by at least a factor of two. Any investment is worth it </p>
+<ol>
+<li>Out the box, easy to setup.  </li>
+<li>Configurable, Xcode and tooling is maintained for you.  </li>
+<li>Great integration with Github  </li>
+<li>Well documented and widely adopted in open source community  </li>
+<li>Nice user interface.</li>
+</ol>
+
+<p><mark>Cons</mark>:</p>
+
+<ol>
+<li>Doesn't work if your code isn't on Github.  </li>
+<li>Pricey, and limited build capacity for cheaper plans.  </li>
+<li>A lot less configurations and plugins compared to Jenkins.</li>
+</ol>
+
+<p>Verdict: In the end, <code>Travis</code>'s and for that matter <code>CircleCI</code>'s lack of integration with Bitbucket and Gitlab were a deal breaker. Our code was not on Github. Even if it were, our necessity to run builds, tests continuously would simply require too much build capacity(and build minutes are very expensive). They also lacked the ecosystem of plugins that made Jenkins so desirable(be it the plugin that allows you to trigger an email, or the one that retries a build 3 times if it failed).</p>
+
+<h4 id="2xcodeserver"><code>2. Xcode Server</code></h4>
+
+<p>A CI server created by Apple in order to assist iOS (and macOS?) developers with their CI needs. Xcode Server(XCS) calls them bots, Jenkins calls them jobs but they are the same thing, scheduled tasks. Xcode Server bots show in our project navigator like this:</p>
+
+<p><img src="../content/images/2017/03/19e.png" alt="" /></p>
+
+<p>And you can decide if you your bot to run unit or ui tests, analyze or even generate a ipa ready to be installed(archive action): <br />
+<img src="../content/images/2017/03/14e.png" alt="" /></p>
+
+<p>After an <em>integration</em> has been executed you get this overview which is the best part of XCS: <br />
+<img src="../content/images/2017/03/20e.png" alt="" />
+And this test overview. <br />
+<img src="../content/images/2017/03/22e.png" alt="" /></p>
+
+<p>There is roughly <strong>one</strong> single guide on the whole world wide web about how to work with XCS and that is <a href="https://honzadvorsky.com/articles/2015-08-04-xcs_tutorials_1_getting_started/">Honza dworzky's</a>. If you'd like to know more about how to setup XCS, read it. And not by accident, Honza is now working at Apple on developer tooling. </p>
+
+<p>Xcode server might know a lot about Xcode, but it knows very little about continuous integration. It can't run two jobs(bots) or more in parallel, it fails to pick up git submodule changes(need a custom script just for this). When you have a continuous running task that is not necessarily related to Xcode(for example downloading the localizable.strings translations every day) XCS can't do it without first building or testing something. When XCS fails to build, Apple's simplicity philosophy plays against it and XCS's errors are simply too vague (<code>/usr/bin codesign failed</code>)</p>
+
+<p>The really bad part is that everything outside building and testing in XCS you have to create yourself, using the limited api that XCS has. No integrations with Gitlab/Bitbucket/Github, no plugins to communicate with api's no job pipelines. In fact the <strong>only</strong> thing that XCS can do is run unit+ui tests on devices easily. Even then, when it fails, it doesn't say why, leaving you with the burden of figuring it out.</p>
+
+<p><mark>Pros</mark>:</p>
+
+<ol>
+<li>Integrates very well with Xcode  </li>
+<li>Everything works out the box  </li>
+<li>Has a web dashboard for monitoring your bots.  </li>
+<li>Can create installable ipa's and you can install them in the web dashboard.</li>
+</ol>
+
+<p><mark>Cons</mark>:</p>
+
+<ol>
+<li>Has issues with the most basic tasks like checking out source code when you have submodules.  </li>
+<li>Cant add multiple builder nodes and bots are slow to run, impossible to scale up.  </li>
+<li>Too focused around XCode specific tasks, doesn't allow for other kinds of jobs.  </li>
+<li>Almost non-existant integrations.  </li>
+<li>Impossible to debug build issues.  </li>
+<li>Only good for unit and ui testing.</li>
+</ol>
+
+<p>Verdict: <br />
+Apple clearly didn't set out to build a fully fledged CI server. Maybe it was just targeting small teams and indie developers. After our extensive experiments with XCS it looks like even small teams would have tremendous difficulties in maintaining, keeping it alive, debugging it and getting feedback from XCS in reasonable time. </p>
+
+<p>When you don't encounter such problems, XCS is simply not able to offer more than building and testing. Uploading to iTC, provisioning profile download and installation, uploading to hockey app(or fabric), reporting test results back to our git repository manager,other CI tasks are out of reach for XCS and would be much more difficult with XCS than our final alternative.</p>
+
+<h4 id="3jenkinsfastlane"><code>3. Jenkins + fastlane</code></h4>
+
+<p>This one is a little bit different because an introduction is need into what is fastlane and what it does. </p>
+
+<p>Fastlane is a set of command line tools, that allows a developer to build his app: <br />
+<code>fastlane gym --scheme YourSchemeName</code></p>
+
+<p>Or to run his unit tests <br />
+<code>fastlane scan --scheme YourSchemeName</code></p>
+
+<p>To run his UI Tests on a specific device <br />
+<code>fastlane scan --scheme UITestsScheme --devices 'iPhone 5s'</code></p>
+
+<p>Or even to upload his app test flight: <br />
+<code>fastlane pilot upload --ipa PathToIpa</code> </p>
+
+<p>These four simple actions allow us to achieve the goals set out in the introduction of this article. Fastlane is able to do much more (provisioning profile download and installation) but these commands will be enough for us to achieve the goals set out in the beginning of this article. </p>
+
+<p>Now back to Jenkins. Jenkins is a webserver that can run on any machine(include the macbook this post is written on). When installed it looks like this:</p>
+
+<p><img src="../content/images/2017/03/Screen-Shot-2017-03-05-at-2-40-50-AM.png" alt="" /></p>
+
+<p>Using the fastlane commands previously described a developer will be able to easily create Jobs like running unit and UI Tests by invoking appropriate <code>fastlane scan</code> commands. In order to create the build and upload job, calls to <code>fastlane gym</code> and <code>fastlane pilot</code> should be enough. By making this job parametrized with a GIT parameter(Git parameter plugin) you wil be able to trigger a build from any branch: <br />
+<img src="../content/images/2017/03/Screen-Shot-2017-03-05-at-2-46-34-AM.png" alt="" /></p>
+
+<p>The Merge Request builder is an interesting case. It needs to be triggered for every Merge Request, execute unit tests(<code>fastlane scan</code>) and report back to gitlab. Using the Gitlab plugin (Something that other servers don't have) it becomes a matter of clicking a few buttons to build when a change is pushed: <br />
+<img src="../content/images/2017/03/Screen-Shot-2017-03-05-at-2-40-02-AM.png" alt="" /></p>
+
+<p>And report the results back as green checkmarks (or red X's) next to the commit in Gitlab,Bitbucket. <br />
+<img src="../content/images/2017/03/Screen-Shot-2017-03-05-at-2-40-36-AM.png" alt="" /></p>
+
+<p>With the power of the Build Monitor View plugin, a developer can add the jobs that run unit and UI tests in a nice view like this: <br />
+<img src="../content/images/2017/03/Screen-Shot-2017-03-05-at-2-41-27-AM.png" alt="" title="" /> </p>
+
+<p>If more granularity is needed then by using fastlane's ability to easily indicate a specific simulator to run UI Tests on, a more granular UI Testing dashboard can be created:</p>
+
+<p><img src="../content/images/2017/03/Screen-Shot-2017-03-05-at-2-43-41-AM.png" alt="" /></p>
+
+<p>Another job might use <code>fastlane sigh</code> to renew and download provisioning profiles every day. Another job might create builds and upload them to hockeyApp after each Merge Request for your testers to test them. Send slack notifications with the changelog and download link of the app when a new build is available? All possible.</p>
+
+<p>Jenkins's ability to scale up by adding more builder nodes is also worthy as is the fact that it is free. The only bad part about Jenkins is that because it is free, you have to host and maintain it. It's UI is also historically not so good. Other than that, it's plugins, robustness, reliability and integration with all kinds of third party services is world-class. </p>
+
+<p>Verdict: <br />
+Even small teams will enjoy using <code>fastlane</code> to automate their iOS app processes (builds, uploads, tests). Configuring a Jenkins server to run those fastlane commands is not difficult and saves a team member from having to look at his terminal a few hours every while these commands run. Great and transparent error handling is a <a href="https://krausefx.com/blog/ios-tools">primary goal of fastlane</a> so combined with a Jenkins server you will have a robust solution for your team to use. The great documentation of fastlane and the already proven robust mister Jenkins with it's myriad of plugins will allow you to automate even your wildest processes. All at a click's distance. Xcode Server trails at the end, other CI servers are less powerful (but easier to use) and so Jenkins wins the battle for our preferred CI Server.</p>
+
+<p>PS: We are still giving a chance to Xcode Server to become a part of our CI setup by running UI tests on physical devices. It remains to be seen, if XCS will be able to handle that task, or we will have to uninstall it completely. </p>
         </section>
 
         <section class="social-share">
@@ -408,16 +518,10 @@ test
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story no-cover" href="../did-i-hire-professional-ios-developers-how-to-tell/index.html">
+    <a class="read-next-story prev no-cover" href="../ios-embedding-frameworks-into-extensions-debugging-issues/index.html">
         <section class="post">
-            <h2>Did I hire professional iOS developers? How to tell</h2>
-            <p>Hi from the Code Bug,  Here are 10 ways to detect that your iOS team acts professionally: Ask them&hellip;</p>
-        </section>
-    </a>
-    <a class="read-next-story prev no-cover" href="../how-to-switch-from-coredata-to-realm/index.html">
-        <section class="post">
-            <h2>How to switch from CoreData to Realm in 5 minutes</h2>
-            <p>Hi from the CodeBug :)  I have been at work disturbing programmers this week. Also, a new idea popped into&hellip;</p>
+            <h2>iOS: Embedding frameworks into extensions, debugging issues</h2>
+            <p>Since iOS 8, apple allows developers to ship and make use of dynamic libraries. This allows us to easily&hellip;</p>
         </section>
     </a>
 </aside>
@@ -445,11 +549,11 @@ test
 
             $('.rrssb-buttons').rrssb({
                 // required:
-                title: 'iOS app testers, the game changer is here',
-                url: 'http://thebugcode.github.io/ios-app-testing-the-game-changer/',
+                title: 'iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane',
+                url: 'http://thebugcode.github.io/ios-continous-integration-choosing-a-build-server-and-tooling/',
 
                 // optional:
-                 description: 'iOS app testers, the game changer is here',
+                 description: 'iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane',
                 // emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
             });
 
