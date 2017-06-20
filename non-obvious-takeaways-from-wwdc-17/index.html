@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>Airbnb iOS app, a critical review and verdict</title>
+    <title>Non-obvious takeaways from WWDC 17</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -19,21 +19,21 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/prism.css?v=609ad88588" />
     <link rel="stylesheet" type="text/css" href="../assets/css/rrssb.css?v=609ad88588" />
 
-    <link rel="canonical" href="http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/" />
+    <link rel="canonical" href="http://thebugcode.github.io/non-obvious-takeaways-from-wwdc-17/" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="The Code Bug" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Airbnb iOS app, a critical review and verdict" />
-    <meta property="og:description" content="Hi everyone, In today&#x27;s post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I..." />
-    <meta property="og:url" content="http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/" />
-    <meta property="article:published_time" content="2016-10-27T23:09:14.428Z" />
-    <meta property="article:modified_time" content="2016-10-27T23:17:40.787Z" />
+    <meta property="og:title" content="Non-obvious takeaways from WWDC 17" />
+    <meta property="og:description" content="Apple engineers are now allowed to use twitter, respond to developers, a lot of new faces on the WWDC stage.   Apple figured out a way to make the iPad desirable and charge a high price for it (Basically apple&#x27;s business..." />
+    <meta property="og:url" content="http://thebugcode.github.io/non-obvious-takeaways-from-wwdc-17/" />
+    <meta property="article:published_time" content="2017-06-20T04:47:44.483Z" />
+    <meta property="article:modified_time" content="2017-06-20T04:57:29.722Z" />
     
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Airbnb iOS app, a critical review and verdict" />
-    <meta name="twitter:description" content="Hi everyone, In today&#x27;s post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I..." />
-    <meta name="twitter:url" content="http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/" />
+    <meta name="twitter:title" content="Non-obvious takeaways from WWDC 17" />
+    <meta name="twitter:description" content="Apple engineers are now allowed to use twitter, respond to developers, a lot of new faces on the WWDC stage.   Apple figured out a way to make the iPad desirable and charge a high price for it (Basically apple&#x27;s business..." />
+    <meta name="twitter:url" content="http://thebugcode.github.io/non-obvious-takeaways-from-wwdc-17/" />
     
     <script type="application/ld+json">
 {
@@ -48,11 +48,11 @@
         "sameAs": null,
         "description": "A passionate iOS developer. Looking to radically improve the way we all develop software."
     },
-    "headline": "Airbnb iOS app, a critical review and verdict",
-    "url": "http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/",
-    "datePublished": "2016-10-27T23:09:14.428Z",
-    "dateModified": "2016-10-27T23:17:40.787Z",
-    "description": "Hi everyone, In today&#x27;s post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I..."
+    "headline": "Non-obvious takeaways from WWDC 17",
+    "url": "http://thebugcode.github.io/non-obvious-takeaways-from-wwdc-17/",
+    "datePublished": "2017-06-20T04:47:44.483Z",
+    "dateModified": "2017-06-20T04:57:29.722Z",
+    "description": "Apple engineers are now allowed to use twitter, respond to developers, a lot of new faces on the WWDC stage.   Apple figured out a way to make the iPad desirable and charge a high price for it (Basically apple&#x27;s business..."
 }
     </script>
 
@@ -96,9 +96,9 @@ var social_link = {
     <article class="post">
 
         <header class="post-header">
-            <h1 class="post-title">Airbnb iOS app, a critical review and verdict</h1>
+            <h1 class="post-title">Non-obvious takeaways from WWDC 17</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2016-10-28">28 October 2016</time> 
+                <time class="post-date" datetime="2017-06-20">20 June 2017</time> 
             </section>
             <section class="social-share">
                 <ul class="rrssb-buttons clearfix">
@@ -212,84 +212,21 @@ var social_link = {
         </header>
 
         <section class="post-content">
-            <p>Hi everyone,</p>
-
-<p>In today's post we are going to be looking at the design of Airbnb iOS app and reach a few conclusions about what might have went wrong there. As an experienced iOS developer and regular app user I think I can try and provide reasonable feedback.</p>
-
-<p>I am in love with Airbnb, and together with my wife use this service daily to communicate with our guests. I have been complaining about the iOS app everyday for the last two years, went to Airbnb open, complained there but still no change. After a few months of pain I have finally found the time to write about it. The experience is the same for guests as it is for hosts (arguably the host app experience is even worse).</p>
-
-<p>Let's dive in. App version 16.42.1 (latest) iOS version 10.1 (latest). We start by communicating with our guest/host. Notice the 3 horizontal lines between messages. Why are they there?</p>
-
-<p><img src="../content/images/2016/10/IMG_1983.PNG" alt="" /></p>
-
-<p>We don't know. Let's try and scroll a little bit and see if they disappear:</p>
-
-<p><img src="../content/images/2016/10/IMG_1986.PNG" alt="" /></p>
-
-<p>It's magical. They are gone. Well this is just careless programming. You should remove separators between cells if needed. Let's continue to another guest, this time let's open his profile. Let's try and scroll a little bit. A white <a href="https://developer.apple.com/ios/human-interface-guidelines/ui-bars/status-bars/">UIStatusBar</a> does't really make sense if the background is white. I drew what's missing for the Airbnb folks. </p>
-
-<p><img src="../content/images/2016/10/IMG_1952-1.PNG" alt="" /></p>
-
-<p>Now let's go into a reservation and tap View on Calendar. It's loading something. The loading indicator itself is not very helpful as it tends to load for very long times. <br />
-<img src="../content/images/2016/10/IMG_1953.PNG" alt="" /></p>
-
-<p>But after it finishes it wants to load some more:</p>
-
-<p><img src="../content/images/2016/10/IMG_1954.PNG" alt="" /></p>
-
-<p>Advice: Once you show a loading indicator , load everything you need. Our guest is waiting at the door though, lets talk to him. White spaces, and insets for the scroll indicator. White spaces everywhere.</p>
-
-<p><img src="../content/images/2016/10/IMG_1964.PNG" alt="" /></p>
-
-<p>Next, lets go back to our calendar and try to refresh it, by performing the popular pull-down-to-refresh action. We expect the circular arrows to spin until they finish refreshing. But no. <br />
-<img src="../content/images/2016/10/IMG_1960-1.PNG" alt="" />
-After releasing instead of the arrows spinning in a circle until they refresh we go to the same empty, slow and uninformative loading screen. Boom! <br />
-<img src="../content/images/2016/10/IMG_1961.PNG" alt="" /></p>
-
-<p>Well, lets scroll a little bit in the calendar tab. UIStatusBar discipline is completely ignored by Airbnb. Anything goes: <br />
-<img src="../content/images/2016/10/IMG_1965.PNG" alt="" /></p>
-
-<p>As well as the notion of text fitting screens (even if the screen is the latest one Apple launched) and the app is in English. Just imagine how bad it must be in other languages, where developers tend to not test that much: <br />
-<img src="../content/images/2016/10/IMG_1966.PNG" alt="" /></p>
-
-<p>I hear you! You're saying, maybe the iOS app for hosts sucks. But the part which is for guests must be great. Check this out. Currency formatting (there are so many nice apis for this) is wrong. Status Bar, dead wrong, Map and Filters buttons overflow the white content, not sure when the button ends and the backgrounds starts. <br />
-<img src="../content/images/2016/10/IMG_1967.PNG" alt="" /></p>
-
-<p>Lets check out our trips. No pictures. Huh. Waiting doesn't help. Oh right, scrolling might help.</p>
-
-<p><img src="../content/images/2016/10/IMG_1969.PNG" alt="" /></p>
-
-<p>Woooaah. It only loads images after opening a trip. Let there be light: <br />
-<img src="../content/images/2016/10/IMG_1970.PNG" alt="" /></p>
-
-<p>Ok, lets check our conversations. After getting through yet another loading screen we see this:</p>
-
-<p><img src="../content/images/2016/10/IMG_1971.PNG" alt="" /></p>
-
-<p>All right, maybe its wrong after you made a booking. But when you're just browsing it's great. Let's try to like something by tapping the heart icon:</p>
-
-<p><img src="../content/images/2016/10/IMG_1977.PNG" alt="" /></p>
-
-<p>We're not allowed to do that, we can't like (it's actually called Save to wish list). We have to insert some text here. But where is the Create button? <br />
-<img src="../content/images/2016/10/IMG_1981.PNG" alt="" /></p>
-
-<p>Bummer, it's hidden well under the keyboard. If you try to like something again, you will once more asked to insert some text. I expect to be able to <code>heart</code> things and thats it. Save it to my account somewhere, please.</p>
-
-<p>Now one could say, maybe Apple's <a href="https://developer.apple.com/ios/human-interface-guidelines/">Human Interface Guidelines</a> are completely ignored at Airbnb. But performance should not be. Why is it that every View that you try to load takes 2-3 seconds? Why is it that the app is so slow to start, messages are slow to load. When guests are waiting at the door we need real time response times. Why is it that the calendar is insanely slow to load (so you can actually check if your rooms are free?).</p>
-
-<p>There can only be two answers: <br />
-1. The iOS Developers working on the Airbnb iOS app are incompetent, unprofessional and ignore every best practice in the community (UI, UX, performance, modularity, scrolling smoothness, even release notes). <br />
-2. The technical team wants to but is not allowed or doesn't have the resources to make this app at least acceptable. </p>
-
-<p>And I saved the best for last. Here is how Airbnb's release notes look like on the AppStore. Oh the irony. They copy paste the same message saying stability tweaks. We saw the tweaks in action:</p>
-
-<p><img src="../content/images/2016/10/IMG_1987.PNG" alt="" /></p>
-
-<p>Don't trust a seasoned iOS Developer and regular user? Trust AppStore reviews:</p>
-
-<p><img src="../content/images/2016/10/Screen-Shot-2016-10-28-at-01-06-01.png" alt="" /></p>
-
-<p>PS: I would like to have a chat with the Airbnb engineers/founders/designers. I would love to help you get out of mess, i've done it before for other iOS apps. I am going to email this blog post to every boss, designer and developer at airbnb that I know of. About time to get this fixed.</p>
+            <ol>
+<li>Apple engineers are now allowed to use twitter, respond to developers, a lot of new faces on the WWDC stage.  </li>
+<li>Apple figured out a way to make the iPad desirable and charge a high price for it (Basically apple's business model): Build premium hardware and ship a great OS for iPads, a drag fest as Craig Federighi calls it. They struggled for years with declining iPad sales but figured it out. Let's see how it translates in sales.  </li>
+<li>Phil Schiller is on fire with improving the AppStore (<a href="https://www.theverge.com/2015/12/17/10412204/apple-phil-schiller-now-leads-app-store">taking over this responsibility from Eddie Cue</a>).  </li>
+<li>I missed Phil Schiller presenting the new iMacs and iPads hardware. Watch "cant innovate anymore my ass" <a href="https://www.youtube.com/watch?v=2KrhSaDVH6g">line</a>. Phil did however have his hardware moment when he spoke about the homePod.  </li>
+<li>Apple properly recognized a trend: app developers are suffering in large due to the broken AppStore and it's  dysfunctional search. That's why Phil Schiller is on it, and his job title updates have indicated this new responsibility. A lot of improvements have been made both to the store and to iTunes Connect.  </li>
+<li>The new macOS and it's name were disappointing. "High Sierra" was mocked a lot by developers but since Apple added very few features to macOS , it's appropriate. Still "El Capitan", "Sierra" and "High Sierra" have not added much and you would be hard pressed to tell the differences when looking at the OS-es. This is bad especially given <a href="https://www.bloomberg.com/news/articles/2016-12-20/how-apple-alienated-mac-loyalists">an extensive report that apple no longer has a dedicated mac team</a>, "There is now just one team, and most of the engineers are iOS first". With renewed iPad focus, is macOS dead?  </li>
+<li>Apple listened to the developer community and it's pains. Not only did they listen when we asked for improvements in iOS for iPad, they improved the tooling and opened up the Swift refactoring engine, rewrote it and improved Xcode by a lot. A big thanks to all apple engineers.  </li>
+<li>UIKit in iOS 11 has a property called safe Area insets. Rumors on twitter say that's in preparation for the bezel-less iPhone 8.  </li>
+<li>Cellular data on/off is finally available in the Control Centre. A little too late now that most people have unlimited data plans.  </li>
+<li>Control Center got a huge revamp, allowing for a lot of controls in a limited space, thus stopping the ever increasing complexity of CC.  </li>
+<li>This year's sherlocking was done by launching PDFKit  and ARKit. Notably, one of the contestants in Apple's own show, Planet of the Apps, built an app and ARKit makes it trivial.  </li>
+<li>The new iPad A10X SOC are beasts, beating Intel cpus in some benchmarks. Is Apple secretly maintaining an ARM build of macOS?  </li>
+<li>Apple went public this year saying they have plans for rearchitected Macs in 2018, yet they launched an insanely powerful iMac Pro, refreshed iMacs.  The iMac bezels take > 20% of it's full height. When are we getting an infinite display iMac and should we invest 4999$ + tax in the current iMac Pro? Sounds like a trap.</li>
+</ol>
         </section>
 
         <section class="social-share">
@@ -446,16 +383,10 @@ After releasing instead of the arrows spinning in a circle until they refresh we
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story no-cover" href="../ios-embedding-frameworks-into-extensions-debugging-issues/index.html">
+    <a class="read-next-story prev no-cover" href="../ios-continous-integration-choosing-a-build-server-and-tooling/index.html">
         <section class="post">
-            <h2>iOS: Embedding frameworks into extensions, debugging issues</h2>
-            <p>Since iOS 8, apple allows developers to ship and make use of dynamic libraries. This allows us to easily&hellip;</p>
-        </section>
-    </a>
-    <a class="read-next-story prev no-cover" href="../when-to-self-in-swift-and-when-not-to-2/index.html">
-        <section class="post">
-            <h2>Clean code: when to use &quot;self.&quot; in Swift, and when not to</h2>
-            <p>Hi from the codebug, Swift is great programming language. We love that it's fast, safe and flexible. We also&hellip;</p>
+            <h2>iOS Continous integration: Xcode Server, Jenkins, Travis and fastlane</h2>
+            <p>Twice in the last year my team was looking at the tremendous task of choosing and sticking with a&hellip;</p>
         </section>
     </a>
 </aside>
@@ -483,11 +414,11 @@ After releasing instead of the arrows spinning in a circle until they refresh we
 
             $('.rrssb-buttons').rrssb({
                 // required:
-                title: 'Airbnb iOS app, a critical review and verdict',
-                url: 'http://thebugcode.github.io/airbnb-ios-app-a-critical-review-and-verdict/',
+                title: 'Non-obvious takeaways from WWDC 17',
+                url: 'http://thebugcode.github.io/non-obvious-takeaways-from-wwdc-17/',
 
                 // optional:
-                 description: 'Airbnb iOS app, a critical review and verdict',
+                 description: 'Non-obvious takeaways from WWDC 17',
                 // emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
             });
 
